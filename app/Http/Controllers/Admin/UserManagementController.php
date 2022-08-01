@@ -28,8 +28,8 @@ class UserManagementController extends Controller
         $this->data['students'] = User::where('user_role', 'student')
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
-                    return $query->whereRaw("first_name LIKE  UPPER('{$this->data['keyword']}%')")
-                        ->orWhereRaw("LOWER(last_name)  LIKE  '{$this->data['keyword']}%'")
+                    return $query->whereRaw("firstname LIKE  UPPER('{$this->data['keyword']}%')")
+                        ->orWhereRaw("LOWER(lastname)  LIKE  '{$this->data['keyword']}%'")
                         ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'")
                         ->orWhereRaw("LOWER(student_number)  LIKE  '{$this->data['keyword']}%'");
                 }
@@ -103,8 +103,8 @@ class UserManagementController extends Controller
         $this->data['admins'] = User::where('user_role', '!=', 'student')
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
-                    return $query->whereRaw("first_name LIKE  UPPER('{$this->data['keyword']}%')")
-                        ->orWhereRaw("LOWER(last_name)  LIKE  '{$this->data['keyword']}%'")
+                    return $query->whereRaw("firstname LIKE  UPPER('{$this->data['keyword']}%')")
+                        ->orWhereRaw("LOWER(lastname)  LIKE  '{$this->data['keyword']}%'")
                         ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'");
                 }
             })
