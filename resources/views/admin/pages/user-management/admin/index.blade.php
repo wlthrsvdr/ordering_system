@@ -77,7 +77,8 @@
         <div class="card">
             <div class="card-header">
                 <div><span class="float-right">
-                        <a class="btn btn-sm btn-primary text-white" href="">Add Admin</a>
+                        <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.users.admin.create') }}">Add
+                            Admin</a>
                     </span>
                 </div>
             </div>
@@ -169,6 +170,10 @@
                                                         @else
                                                             Activate
                                                         @endif
+                                                    </a>
+                                                    <a href="{{ route('admin.users.admin.edit', [$value->id]) }}"
+                                                        class="dropdown-item" style="cursor: pointer">
+                                                        Update Information
                                                     </a>
                                                 </div>
                                             </td>

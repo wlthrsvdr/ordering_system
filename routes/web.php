@@ -41,23 +41,29 @@ Route::group(
 
             Route::any('/', ['as' => "dashboard", 'uses' => "MainController@index"]);
 
-            Route::get('users', ['as' => "users", 'uses' => "UserManagement@users"]);
-            Route::post('users', ['uses' => "UserManagement@store"]);
+            Route::get('users', ['as' => "users", 'uses' => "UserManagementController@users"]);
+            Route::post('users', ['uses' => "UserManagementController@store"]);
 
-            Route::get('get_user/{id}', ['uses' => "UserManagement@get_user"]);
-            Route::post('update_user', ['uses' => "UserManagement@update"]);
-            Route::post('approved_user/{id}', ['uses' => "UserManagement@approvedUser"]);
-            Route::post('block_user/{id}', ['uses' => "UserManagement@blockedUser"]);
+            Route::get('get_user/{id}', ['uses' => "UserManagementController@get_user"]);
+            Route::post('update_user', ['uses' => "UserManagementController@update"]);
+            Route::post('approved_user/{id}', ['uses' => "UserManagementController@approvedUser"]);
+            Route::post('block_user/{id}', ['uses' => "UserManagementController@blockedUser"]);
         });
 
         Route::group(['prefix' => 'users', 'as' => "users."], function () {
             Route::group(['prefix' => 'student', 'as' => "student."], function () {
-                Route::any('/', ['as' => "index", 'uses' => "UserManagement@students"]);
-                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagement@update_status"]);
+                Route::any('/', ['as' => "index", 'uses' => "UserManagementController@students"]);
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
             });
             Route::group(['prefix' => 'admin', 'as' => "admin."], function () {
-                Route::any('/', ['as' => "index", 'uses' => "UserManagement@admins"]);
-                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagement@update_status"]);
+                Route::any('/', ['as' => "index", 'uses' => "UserManagementController@admins"]);
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
+
+                Route::get('create', ['as' => "create", 'uses' => "UserManagementController@create_admin"]);
+                Route::post('create', ['uses' => "UserManagementController@store_admin"]);
+
+                Route::get('edit/{id?}', ['as' => "edit", 'uses' => "UserManagementController@edit_admin"]);
+                Route::post('edit/{id?}', ['uses' => "UserManagementController@update_admin"]);
             });
         });
     }

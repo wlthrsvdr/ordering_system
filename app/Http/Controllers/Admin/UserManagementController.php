@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\{User, Profiles};
-use DB;
-use Str;
+use App\Models\{User};
+use DB, Str;
 
-class UserManagement extends Controller
+class UserManagementController extends Controller
 {
 
     protected $data;
@@ -45,6 +44,55 @@ class UserManagement extends Controller
         return view('admin.pages.user-management.student.index', $this->data);
     }
 
+    public function create_student(Request $request)
+    {
+        $this->data['auth'] = $request->user();
+
+
+        return view('admin.pages.user-management.admin.create', $this->data);
+    }
+
+    public function store_student(Request $request)
+    {
+
+        if ($request->get('password') != $request->get('confirm_password')) {
+            session()->flash('notification-status', "error");
+            session()->flash('notification-msg', "Password not match.");
+
+            goto callback;
+        }
+
+        DB::beginTransaction();
+        try {
+
+            $user = new User;
+            $user->student_number = $request->get('student_number');
+            $user->firstname = $request->get('firstname');
+            $user->middlename = $request->get('middlename');
+            $user->lastname = $request->get('lastname');
+            $user->suffix = $request->get('suffix');
+            $user->email = $request->get('email');
+            $user->password = bcrypt($request->get('password'));
+            $user->user_role = 'student';
+            $user->account_status = 'active';
+            $user->save();
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Register successfully.");
+            return redirect()->route('admin.users.student.index');
+        } catch (\Throwable $e) {
+            DB::rollback();;
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+
+        callback:
+        session()->flash('notification-status', "failed");
+        return redirect()->back();
+    }
+
     public function admins(Request $request)
     {
 
@@ -72,12 +120,19 @@ class UserManagement extends Controller
             })->orderBy('created_at', "DESC")
             ->paginate($this->per_page);
 
-            // dd( $this->data['admins']);
 
         return view('admin.pages.user-management.admin.index', $this->data);
     }
 
-    public function store(Request $request)
+    public function create_admin(Request $request)
+    {
+        $this->data['auth'] = $request->user();
+
+
+        return view('admin.pages.user-management.admin.create', $this->data);
+    }
+
+    public function store_admin(Request $request)
     {
 
         if ($request->get('password') != $request->get('confirm_password')) {
@@ -91,7 +146,7 @@ class UserManagement extends Controller
         try {
 
             $user = new User;
-            $user->student_number = $request->get('student_number');
+            // $user->student_number = $request->get('student_number');
             $user->firstname = $request->get('firstname');
             $user->middlename = $request->get('middlename');
             $user->lastname = $request->get('lastname');
@@ -103,9 +158,9 @@ class UserManagement extends Controller
             $user->save();
             DB::commit();
 
-            return redirect()->route('admin.users');
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Register successfully.");
+            return redirect()->route('admin.users.admin.index');
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");
@@ -118,31 +173,34 @@ class UserManagement extends Controller
         return redirect()->back();
     }
 
-    public function get_user($id)
+    public function edit_admin(Request $request, $id)
     {
-        $data  = User::with('account')->where('id', $id)->first();
+        $this->data['admin'] = User::find($id);
 
-        return  $data;
+        return view('admin.pages.user-management.admin.edit', $this->data);
     }
 
-    public function update(Request $request)
+    public function update_admin(Request $request, $id)
     {
 
+        // dd($request);
         DB::beginTransaction();
         try {
-            $user = User::where('id', request('id'))->first();
-            $user->student_number = $request->get('student_number');
+
+            $user = User::find($id);
+            // $user->student_number = $request->get('student_number');
             $user->firstname = $request->get('firstname');
             $user->middlename = $request->get('middlename');
             $user->lastname = $request->get('lastname');
             $user->suffix = $request->get('suffix');
             $user->email = $request->get('email');
+            $user->user_role = $request->get('user_role');
             $user->save();
-            DB::commit();
 
-            return redirect()->route('admin.users');
+            DB::commit();
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Update successfully.");
+            return redirect()->route('admin.users.admin.index');
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");

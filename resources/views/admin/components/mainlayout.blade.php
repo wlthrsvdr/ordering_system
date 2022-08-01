@@ -123,7 +123,8 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.admin.index') }}" class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
+                                    <a href="{{ route('admin.users.admin.index') }}"
+                                        class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Admin</p>
                                     </a>
@@ -188,20 +189,14 @@
 
 
     {{-- <script type="text/javascript" src="/assets/js/{{ $js }}"></script> --}}
-    <script type="text/javascript" src="/assets/js/UserManagement.js"></script>
-
-    <script type="text/javascript" src="/assets/js/Announcement.js"></script>
-
-    <script type="text/javascript" src="/assets/js/Request.js"></script>
-
-    <script type="text/javascript" src="/assets/js/News.js"></script>
+    {{-- <script type="text/javascript" src="/assets/js/UserManagement.js"></script> --}}
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>
 
-    <script>
+    {{-- <script>
         $.widget.bridge('uibutton', $.ui.button)
-    </script>
+    </script> --}}
 
     <script type="text/javascript">
         $(function() {
