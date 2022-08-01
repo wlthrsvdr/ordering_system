@@ -1,0 +1,268 @@
+/*-----------HOME-------------*/
+/*-----------ABOUT-------------*/
+/*-----------REQUESTS-------------*/
+/*-----------NOTIFICATION-------------*/
+/*-----------FOOTER-------------*/
+
+body,
+html {
+    width: 100%;
+    height: 100vh;
+    background-color: #EFEDEE;
+}
+
+
+.padding{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.margin{
+    margin: 0;
+}
+
+*{
+    font-family: "Roboto";
+}
+
+/*-----------HOME-------------*/
+
+.btn-style{
+    background: #FEFEFE;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: .5rem;
+    padding: .2rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    color: #000;
+}
+/*banner*/
+
+.banner{
+    background-image: linear-gradient(180deg, #fda085 0%, #f6d365 100%);
+    height: 40rem;
+    width: 100%;
+}
+
+.logo-class{
+    width: 5rem;
+    height: 5rem;
+}
+
+/*Navbar*/
+.nav-style{
+    float: right;
+}
+
+.navbar-toggler{
+    margin-left: auto;
+}
+
+.navbar-custom{
+    padding-top: 1.5rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #FEFEFE;
+}
+
+.custom-ul{
+    margin-left: auto;
+}
+
+li.nav-item {
+    padding-left: 1.5rem;
+}
+
+.navbar-link{
+    margin-left: auto;
+}
+
+
+/*ANNOUNCEMENT button*/
+.btn-card{
+    background-color: #FDC3AB;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    
+}
+.card-header-custom{
+    padding: .6rem;
+}
+
+/*banner title and photo*/
+.banner-title{
+    margin-top: 7rem;
+}
+
+.system-title{
+    font-family: Roboto;
+    font-weight: 600;
+    font-size: 2.1rem;
+    line-height: 47px;
+    color: #fefefe;
+    letter-spacing: 1px;
+}
+
+.system-about-pre{
+    font-size: 1rem;
+    color: #fefefe;
+    letter-spacing: 1px;
+}
+
+.banner-photo{
+    height: 28rem;
+    float: right;
+}
+
+.photo-banner{
+    margin-top: 1.58rem;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.contact-btn{
+    background: #FEFEFE;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: .5rem;
+    padding: .2rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+/*contents*/
+.main-contents{
+    margin-top: 3rem;
+}
+.content-title{
+    font-weight: 600;
+    letter-spacing: 2px;
+    line-height: 29px;
+    font-size: 1.2rem;
+}
+.posts-card{
+    border-radius: 11px;
+    background: linear-gradient(145deg, #e29e70, #ffbb85);
+    box-shadow:  0px 4px 5px 2px #b7805b, 1px 0px 1px 1px #e8a576; 
+    color: #fefefe;
+    /* background: #E8A576;
+box-shadow: 3px 3px 4px 2px rgba(0, 0, 0, 0.25); */
+}   
+
+.date-card{
+    border-right: 1px solid #A7A7A6;
+    border-bottom: 1px solid #A7A7A6;
+    box-sizing: border-box;
+    padding: .3rem;
+    padding-left: 2.5rem;
+}
+
+.day{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.month, .year{
+    font-size: .9rem;
+}
+
+.title-card{
+    border-bottom: 1px solid #A7A7A6;
+    box-sizing: border-box;
+    padding: .3rem;
+}
+
+.card-header-title{
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+.poser-name{
+    /* color: #FDA085; */
+    color: #fefefe;
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.poser-position{
+    /* color: #FDA085; */
+    color: #fefefe;
+    font-style: italic;
+    font-size: .8rem;
+    line-height: 2px;
+}
+
+.readmore{
+    font-size: .8rem;
+}
+.readmore:hover{
+    color: #000;
+    text-decoration: none;
+}
+
+.post-body{
+    padding-left: 7rem;
+}
+
+.post-text{
+    font-size: .9rem;
+}
+
+/*ANNOUNCEMENTS*/
+.announcement-card{
+    border-radius: 11px;
+    background: linear-gradient(145deg, #e29e70, #ffbb85);
+    box-shadow:  0px 4px 5px 2px #b7805b, 1px 0px 1px 1px #e8a576;
+}
+
+.details-btn{
+    color: #fff;
+    opacity: 80%;
+    font-size: .9rem;
+    text-decoration: underline;
+}
+.details-btn:hover{
+    color: #fff;
+    opacity: 80%;
+    font-size: .9rem;
+}
+.announce-title{
+    font-weight: 600;
+    color: #fefefe;
+    /* color: #000;
+    opacity: 80%; */
+}
+
+.announce-sub{
+    font-size: .9rem;
+    margin-bottom: 0;
+    color: #fefefe;
+    /* opacity: 80%; */
+}
+
+
+/*-----------REQUESTS-------------*/
+.navbar-custom{
+    background-color: #E8A576;
+}
+
+
+
+/*-----------FOOTER-------------*/
+
+
+footer{
+    margin-top: 5rem;
+    background-color: #fda085;
+    color: #fefefe;
+    text-align: center;
+    padding: .5rem;
+}
+

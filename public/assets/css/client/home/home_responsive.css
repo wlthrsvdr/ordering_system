@@ -1,0 +1,80 @@
+@media only screen and (max-width: 1030px) {
+    .photo-banner{
+        margin-top: 5.58rem;
+    }
+    .banner-photo{
+        height: 24rem;
+    }
+    .date-card{
+        padding-left: 1rem;
+    }
+    .post-body{
+        padding-left: 4.2rem;
+    }
+
+}
+
+@media only screen and (max-width: 780px){
+    .photo-banner{
+        margin-top: 12.85rem;
+    }
+    .banner-photo{
+        height: 17rem;
+    }
+    .banner{
+        height: 47.1rem;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .navbar-style{
+        float: left;
+    }
+    .photo-banner{
+        position: absolute;
+        margin-top: 8.1rem;
+    }
+    .banner-title{
+        position: relative;
+        z-index: 999;
+        margin-top: 3rem;
+    }
+    .btn-card{
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 330px){
+    .btn-card{
+        font-size: .7rem;
+    }
+    .photo-banner{
+        margin-top: 12.6rem;
+        padding-right: 2rem;
+    }
+    .banner-photo {
+        height: 13rem;
+    }
+    .system-title{
+        font-size: 1.5rem;
+    }
+    .system-about-pre{
+        font-size:.7rem;
+    }
+    .title-card{
+        padding-left: 2rem;
+    }
+    .date-card{
+        border-right: none;
+    }
+    .post-body{
+        padding-left: 1.2rem;
+    }
+    .cobtact-btn{
+        font-size: .9rem;
+    }
+    .padding{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

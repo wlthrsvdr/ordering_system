@@ -1,0 +1,18 @@
+.login-container {
+    height: 100vh;
+    align-items: center;
+    display: flex;
+}
+
+.banner-container {
+    height: 100vh;
+    background-image: url('../imgs/brgy.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: lightcyan;
+}
+
+.input-daterange input {
+    background: #fff !important;
+}

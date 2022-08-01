@@ -1,0 +1,123 @@
+body, html{
+    width: 100%;
+    height: 100%;
+}
+
+.padding{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.margin{
+    margin: 0;
+}
+
+
+/*NAVBAR*/
+.logo-class{
+    width: 5rem;
+    height: 5rem;
+}
+
+.custom-header{
+    background-color: #E8A576;
+}
+
+.navbar-custom{
+    padding-top: 1.5rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #FEFEFE;
+}
+
+.custom-ul{
+    margin-left: auto;
+}
+
+li.nav-item {
+    padding-left: 1.5rem;
+}
+
+
+/*CONTACT INFO*/
+.forms-main-div{
+    margin-top: 5rem;
+}
+
+.custom-div1-padding{
+    padding-right: 0;
+}
+
+.custom-div2-padding{
+    padding-left: 0;
+}
+
+.contact-info-class{
+    background: #E8A576;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 2rem;
+    color: #fefefe;
+    height: 30rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.contact-title{
+    color: #fefefe;
+    font-weight: 600;
+    padding-left: 2rem;
+    font-size: 1.8rem;
+}
+
+.information{
+    padding-left: 2rem;
+    font-weight: 600;
+}
+
+.request-form{
+    background: #FFFFFF;
+    box-shadow: 3px 1px 4px rgba(0, 0, 0, 0.25);
+    height: 30rem;
+    border-left: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 2rem;
+}
+.request-title{
+    color: #1A1A1A;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.input-class{
+    background: #FFFFFF;
+    ;
+    box-shadow: inset 0px 1px 2px 2px  rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    width: 70%;
+    height: 2rem;
+}
+
+.submit{
+    float: right;
+    background: #FEFEFE;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    padding-left:2rem;
+    padding-right: 2rem;
+}
+
+
+/*FOOTER*/
+footer{
+    background-color: #E8A576;
+    color: #fefefe;
+    text-align: center;
+    padding-top: 1rem;
+    margin-top: 5rem;
+}
+

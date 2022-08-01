@@ -1,0 +1,46 @@
+@media only screen and (max-width: 780px){
+    .contact-title{
+        padding-left: 1rem;
+    }
+    .information{
+        padding-left: 1rem;
+    }
+
+    .navbar-light .navbar-toggler {
+         margin-left: 84%;
+    }
+}
+@media only screen and (max-width: 450px){
+    .contact-info-class{
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        height: 25rem;
+        margin-bottom: 2rem;
+    }
+    .request-form{
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
+    .custom-div2-padding{
+        padding-left: .8rem;
+        padding-right: 1rem;
+    }
+    .custom-div1-padding{
+        padding-right: 1rem;
+    }
+    .navbar-light .navbar-toggler {
+        margin-left: 0;
+   }
+}
+
+@media only screen and (max-width: 320px){
+    .padding{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .contact-title, .information{
+        padding-left: 0;
+    }
+    
+}
