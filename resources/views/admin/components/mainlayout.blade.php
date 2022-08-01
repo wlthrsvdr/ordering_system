@@ -4,13 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Barangay Management System </title>
+    <title>PLSP Ordering System </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
+
+    <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/v4-shims.min.css">
 
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -35,7 +37,6 @@
         .input-daterange input {
             background: #fff !important;
         }
-
     </style>
 
 </head>
@@ -80,7 +81,7 @@
 
             <a href="index3.html" class="brand-link">
                 <span class="brand-text font-weight-light">
-                    <h5 align="center"><strong>Barangay Management <br> System</strong></h5>
+                    <h5 align="center"><strong>PLSP Ordering <br> System</strong></h5>
                 </span>
 
             </a>
@@ -105,7 +106,7 @@
                         <li class="nav-item has-treeview">
                             {{-- "nav-link active" --}}
                             <a href="{{ route('admin.dashboard') }}"
-                                class="{{ request()->is('admin/dashboard') ? 'nav-link active' : 'nav-link' }}">
+                                class="{{ request()->is('admin') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -113,65 +114,29 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.annoucements') }}"
-                                class="{{ request()->is('admin/annoucements') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-bullhorn"></i>
-                                <p>
-                                    Annoucements
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.news') }}"
-                                class="{{ request()->is('admin/news') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-bullhorn"></i>
-                                <p>
-                                    News
-                                </p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-palette"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Item
+                                    User Management
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="itemmanagement.php" class="nav-link">
+                                    <a href="{{ route('admin.users.admin.index') }}" class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Management</p>
+                                        <p>Admin</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="itemcategory.php" class="nav-link">
+                                    <a href="{{ route('admin.users.student.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Category</p>
+                                        <p>Students</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.requests') }}"
-                                class="{{ request()->is('admin/requests') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-sticky-note"></i>
-                                <p>
-                                    Requests
-                                </p>
-                            </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.messages') }}"
-                                class="{{ request()->is('admin/messages') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-envelope"></i>
-                                <p>
-                                    Messages
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
+                        {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.users') }}"
                                 class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-users"></i>
@@ -179,8 +144,7 @@
                                     User Management
                                 </p>
                             </a>
-                        </li>
-
+                        </li> --}}
                     </ul>
                 </nav>
 
@@ -203,7 +167,6 @@
         </div>
 
         <footer class="main-footer">
-            {{-- <strong>Footer<a href="http://adminlte.io"></a>.</strong> --}}
 
             <div class="float-right d-none d-sm-inline-block">
 
@@ -238,7 +201,6 @@
 
     <script>
         $.widget.bridge('uibutton', $.ui.button)
-
     </script>
 
     <script type="text/javascript">
@@ -248,11 +210,9 @@
             });
 
         })
-
     </script>
 
-    <script type="text/javascript" src={{ asset('assets/js/bootstrap-datepicker.min.js') }}>
-    </script>
+    <script type="text/javascript" src={{ asset('assets/js/bootstrap-datepicker.min.js') }}></script>
 
     <script type="text/javascript" src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 

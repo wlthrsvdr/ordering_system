@@ -27,7 +27,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
 
-        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 2])) {
+        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Welcome back!");
 
@@ -35,7 +35,13 @@ class AuthController extends Controller
                 return redirect(session()->get($redirect_uri));
             }
 
-            return redirect()->route('admin.dashboard');
+            if (Auth::guard('admin')->user()->user_role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                session()->flash('notification-status', "failed");
+                session()->flash('notification-msg', "Invalid account type.");
+                return redirect()->back();
+            }
         }
 
         session()->flash('notification-status', "failed");

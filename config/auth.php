@@ -42,15 +42,11 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'session',
             'provider' => 'users',
             'hash' => false,
         ],
         'admin' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'client' => [
             'driver' => 'session',
             'provider' => 'users',
         ],

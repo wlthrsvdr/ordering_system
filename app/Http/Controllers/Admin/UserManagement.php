@@ -20,22 +20,61 @@ class UserManagement extends Controller
         $this->middleware('system.guest', ['except' => "logout"]);
     }
 
-    public function users(Request $request)
+    public function students(Request $request)
     {
-        // $this->data['user'] = Profiles::with('account')->get();
 
         $this->data['keyword'] = Str::lower($request->get('keyword'));
+        $this->data['status'] = $request->get('status');
 
-        $this->data['users'] = Profiles::where(function ($query) {
-            if (strlen($this->data['keyword']) > 0) {
-                return $query->whereRaw("first_name LIKE  UPPER('{$this->data['keyword']}%')")
-                    ->orWhereRaw("LOWER(last_name)  LIKE  '{$this->data['keyword']}%'")
-                    ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'");
-            }
-        })->orderBy('created_at', "DESC")
+        $this->data['students'] = User::where('user_role', 'student')
+            ->where(function ($query) {
+                if (strlen($this->data['keyword']) > 0) {
+                    return $query->whereRaw("first_name LIKE  UPPER('{$this->data['keyword']}%')")
+                        ->orWhereRaw("LOWER(last_name)  LIKE  '{$this->data['keyword']}%'")
+                        ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'")
+                        ->orWhereRaw("LOWER(student_number)  LIKE  '{$this->data['keyword']}%'");
+                }
+            })
+            ->where(function ($query) {
+                if (strlen($this->data['status']) > 0) {
+                    return $query->where('account_status', $this->data['status']);
+                }
+            })->orderBy('created_at', "DESC")
             ->paginate($this->per_page);
 
-        return view('admin.pages.users', $this->data);
+        return view('admin.pages.user-management.student.index', $this->data);
+    }
+
+    public function admins(Request $request)
+    {
+
+        $this->data['keyword'] = Str::lower($request->get('keyword'));
+        $this->data['status'] = $request->get('status');
+        $this->data['account_type'] = $request->get('account_type');
+
+        $this->data['admins'] = User::where('user_role', '!=', 'student')
+            ->where(function ($query) {
+                if (strlen($this->data['keyword']) > 0) {
+                    return $query->whereRaw("first_name LIKE  UPPER('{$this->data['keyword']}%')")
+                        ->orWhereRaw("LOWER(last_name)  LIKE  '{$this->data['keyword']}%'")
+                        ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'");
+                }
+            })
+            ->where(function ($query) {
+                if (strlen($this->data['status']) > 0) {
+                    return $query->where('account_status', $this->data['status']);
+                }
+            })
+            ->where(function ($query) {
+                if (strlen($this->data['account_type']) > 0) {
+                    return $query->where('user_role', $this->data['account_type']);
+                }
+            })->orderBy('created_at', "DESC")
+            ->paginate($this->per_page);
+
+            // dd( $this->data['admins']);
+
+        return view('admin.pages.user-management.admin.index', $this->data);
     }
 
     public function store(Request $request)
@@ -51,32 +90,17 @@ class UserManagement extends Controller
         DB::beginTransaction();
         try {
 
-            $credentials = new User;
-            $credentials->name = $request->get('firstname') . ' ' . $request->get('middlname') . ' ' . $request->get('lastname') . ' ' . $request->get('suffix');
-            $credentials->email = $request->get('email');
-            $credentials->password = bcrypt($request->get('password'));
-            $credentials->user_role = $request->get('user_role');
-            $credentials->account_status = 1;
-            $credentials->save();
-            DB::commit();
-
-
-            $profile = new Profiles;
-            $profile->userId = $credentials->id;
-            $profile->first_name = $request->get('firstname');
-            $profile->middle_name =  $request->get('middlename');
-            $profile->last_name =  $request->get('lastname');
-            $profile->suffix =  $request->get('suffix');
-            $profile->age =  $request->get('age');
-            $profile->civil_status =  $request->get('civil_status');
-            $profile->gender =  $request->get('gender');
-            $profile->purok =  $request->get('address');
-            $profile->phone =  $request->get('phone');
-            $profile->telno =  $request->get('telno');
-            $profile->bday =  $request->get('bday');
-            $profile->resident_type =  $request->get('resident_type');
-            $profile->role =  $request->get('user_role');
-            $profile->save();
+            $user = new User;
+            $user->student_number = $request->get('student_number');
+            $user->firstname = $request->get('firstname');
+            $user->middlename = $request->get('middlename');
+            $user->lastname = $request->get('lastname');
+            $user->suffix = $request->get('suffix');
+            $user->email = $request->get('email');
+            $user->password = bcrypt($request->get('password'));
+            $user->user_role = $request->get('user_role');
+            $user->account_status = 'active';
+            $user->save();
             DB::commit();
 
             return redirect()->route('admin.users');
@@ -96,7 +120,7 @@ class UserManagement extends Controller
 
     public function get_user($id)
     {
-        $data  = Profiles::with('account')->where('id', $id)->first();
+        $data  = User::with('account')->where('id', $id)->first();
 
         return  $data;
     }
@@ -106,88 +130,51 @@ class UserManagement extends Controller
 
         DB::beginTransaction();
         try {
-            $profile = Profiles::with('account')->where('id', request('id'))->first();
-            $profile->userId = request('users_id');
-            $profile->first_name = request('firstname');
-            $profile->middle_name =  request('middlename');
-            $profile->last_name =  request('lastname');
-            $profile->suffix =  request('suffix');
-            $profile->gender = request('gender');
-            $profile->address = request('address');
-            $profile->age =  request('age');
-            $profile->civil_status =  $request->get('civil_status');
-            $profile->phone =  request('phone');
-            $profile->telno =  request('telno');
-            $profile->bday =  request('bday');
-            $profile->role =  request('user_role');
-            $profile->resident_type =  $request->get('resident_type');
-            $profile->account->email = request('email');
-            $profile->account->name = request('firstname') . ' ' . request('middlname') . ' ' . request('lastname') . ' ' . request('suffix');
-            $profile->save();
+            $user = User::where('id', request('id'))->first();
+            $user->student_number = $request->get('student_number');
+            $user->firstname = $request->get('firstname');
+            $user->middlename = $request->get('middlename');
+            $user->lastname = $request->get('lastname');
+            $user->suffix = $request->get('suffix');
+            $user->email = $request->get('email');
+            $user->save();
             DB::commit();
 
+            return redirect()->route('admin.users');
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Update successfully.");
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");
             session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
         }
 
-        return   $profile;
+        callback:
+        session()->flash('notification-status', "failed");
+        return redirect()->back();
     }
 
-    public function approvedUser($id)
+    public function update_status(Request $request, $id)
     {
 
-        $user_data  = Profiles::with('account')->where('id', $id)->first();
+        $user_data  = User::where('id', $id)->first();
 
         DB::beginTransaction();
         try {
 
-            $user_data->role = 1;
+            $user_data->account_status =   $user_data->account_status ==  'active' ? 'inactive' : 'active';
             $user_data->save();
             DB::commit();
 
-            $user_data->account->account_status = 1;
-            $user_data->account->save();
-            DB::commit();
-
             session()->flash('notification-status', "success");
-            session()->flash('notification-msg', "Approve user successfully.");
+            session()->flash('notification-msg', "Update user status successfully.");
+            return redirect()->back();
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");
             session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
         }
-        return $user_data;
-    }
-
-    public function blockedUser($id)
-    {
-
-        $user_data  = Profiles::with('account')->where('id', $id)->first();
-
-
-        DB::beginTransaction();
-        try {
-
-            $user_data->role = 0;
-            $user_data->save();
-            DB::commit();
-
-            $user_data->account->account_status = 0;
-            $user_data->account->save();
-            DB::commit();
-
-            session()->flash('notification-status', "success");
-            session()->flash('notification-msg', "Block user successfully.");
-        } catch (\Throwable $e) {
-            DB::rollback();;
-            session()->flash('notification-status', "failed");
-            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
-        }
-
-        return $user_data;
     }
 }

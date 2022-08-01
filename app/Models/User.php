@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Str;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -17,9 +19,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,6 +30,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['name'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -39,9 +41,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function profile()
+    public function getUserRole()
     {
-        return $this->hasOne('App\Models\Profile', 'userId', 'id');
+        return $this->user_role;
     }
+
+    public function getNameAttribute()
+    {
+        return Str::title("{$this->firstname} {$this->middlename} {$this->lastname} " . (strlen($this->suffix) > 0 ? Str::title($this->suffix) : NULL));
+    }
+
+    // public function profile()
+    // {
+    //     return $this->hasOne('App\Models\Profile', 'userId', 'id');
+    // }
 }

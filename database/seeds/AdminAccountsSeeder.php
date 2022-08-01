@@ -14,11 +14,12 @@ class AdminAccountsSeeder extends Seeder
     {
         $admin_account = new User;
 
-        $admin_account->name = "Master Account";
+        $admin_account->firstname = "Master";
+        $admin_account->lastname = "Account";
         $admin_account->email = "admin@admin.com";
         $admin_account->password = bcrypt("admin");
-        $admin_account->user_role = 2;
-        $admin_account->account_status = 1;
+        $admin_account->user_role = 'admin';
+        $admin_account->account_status = 'active';
 
         $admin_account->save();
     }

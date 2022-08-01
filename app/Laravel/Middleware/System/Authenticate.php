@@ -31,10 +31,6 @@ class Authenticate
                 if (!Auth::guard('admin')->check()) {
                     return redirect()->route('admin.login', [$redirect_key]);
                 }
-            } else {
-                if (!Auth::guard('client')->check()) {
-                    return redirect()->route('resident.login', [$redirect_key]);
-                }
             }
             // if ($guardo === "admin") {
             //     if (!Auth::guard('admin')->check()) {
@@ -62,8 +58,6 @@ class Authenticate
     {
         if (Auth::guard('admin')->check()) {
             return "admin";
-        } elseif (Auth::guard('client')->check()) {
-            return "client";
         }
     }
 }
