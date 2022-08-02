@@ -66,6 +66,7 @@
                                     <tr>
                                         <th>Category Code</th>
                                         <th>Category Name</th>
+                                        <th>Category Status</th>
                                         <th>Added By</th>
                                         <th>Updated By</th>
                                         <th>Date Created</th>
@@ -89,6 +90,21 @@
                                                     <div class="mb5">
                                                         {{ $value->category_name }}
                                                     </div>
+                                                @else
+                                                    <div class="mb5">{{ '-' }}</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($value->status)
+                                                    @if ($value->status == 'active')
+                                                        <div><span
+                                                                class="badge badge-success">{{ Str::title($value->status) }}</span>
+                                                        </div>
+                                                    @else
+                                                        <div><span
+                                                                class="badge badge-danger">{{ Str::title($value->status) }}</span>
+                                                        </div>
+                                                    @endif
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
@@ -125,6 +141,14 @@
                                                     class="btn btn-sm btn-primary btn-raised dropdown-toggle"
                                                     data-toggle="dropdown">Actions <span class="caret"></span></button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
+                                                    <a href="{{ route('admin.categories.update-status', [$value->id]) }}"
+                                                        class="dropdown-item" style="cursor: pointer">
+                                                        @if ($value->status == 'active')
+                                                            Deactivate
+                                                        @else
+                                                            Activate
+                                                        @endif
+                                                    </a>
                                                     <a href="{{ route('admin.categories.edit', [$value->id]) }}"
                                                         class="dropdown-item" style="cursor: pointer">
                                                         Update Information
@@ -134,7 +158,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="7">
                                                 <p>No record found yet.</p>
                                             </td>
                                         </tr>

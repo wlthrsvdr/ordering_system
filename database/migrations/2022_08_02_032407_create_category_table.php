@@ -17,6 +17,7 @@ class CreateCategoryTable extends Migration
             $table->id();
             $table->string('category_code');
             $table->string('category_name');
+            $table->string('status')->default('active');
             $table->string('added_by');
             $table->string('updated_by')->nullable();
             $table->timestamps();

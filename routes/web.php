@@ -72,6 +72,7 @@ Route::group(
 
         Route::group(['prefix' => 'categories', 'as' => "categories."], function () {
             Route::any('/', ['as' => "index", 'uses' => "CategoryController@index"]);
+            Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "CategoryController@update_status"]);
 
             Route::get('create', ['as' => "create", 'uses' => "CategoryController@create"]);
             Route::post('create', ['uses' => "CategoryController@store"]);

@@ -114,4 +114,27 @@ class CategoryController extends Controller
         session()->flash('notification-status', "failed");
         return redirect()->back();
     }
+
+    public function update_status(Request $request, $id)
+    {
+
+        $category  = Category::where('id', $id)->first();
+
+        DB::beginTransaction();
+        try {
+
+            $category->status =   $category->status ==  'active' ? 'inactive' : 'active';
+            $category->save();
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Update category status successfully.");
+            return redirect()->route('admin.categories.index');
+        } catch (\Throwable $e) {
+            DB::rollback();;
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+    }
 }
