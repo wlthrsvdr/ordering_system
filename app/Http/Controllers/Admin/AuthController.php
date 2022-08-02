@@ -13,6 +13,7 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('system.guest', ['except' => "logout"]);
+       
     }
 
 
@@ -36,6 +37,13 @@ class AuthController extends Controller
             }
 
             if (Auth::guard('admin')->user()->user_role == 'admin') {
+
+                if (Auth::guard('admin')->user()->account_status  == 'inactive') {
+                    Auth::guard('admin')->logout(true);
+                    session()->flash('notification-status', "failed");
+                    session()->flash('notification-msg', "Account is already Inactive.");
+                    return redirect()->back();
+                }
                 return redirect()->route('admin.dashboard');
             } else {
                 session()->flash('notification-status', "failed");

@@ -34,6 +34,14 @@ class AuthController extends Controller
 
             $user =  auth($this->guard)->user();
 
+            if ($user->account_status  == 'inactive') {
+                $this->response['status'] = FALSE;
+                $this->response['status_code'] = "LOGIN_FAILED";
+                $this->response['msg'] = "Account is inactive. Please contact administrator.";
+                $this->response_code = 401;
+                goto callback;
+            }
+
             $this->response['status'] = TRUE;
             $this->response['status_code'] = "LOGIN_SUCCESS";
             $this->response['msg'] = "Welcome {$user->name}!";

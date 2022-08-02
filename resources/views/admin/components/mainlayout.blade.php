@@ -83,7 +83,6 @@
                 <span class="brand-text font-weight-light">
                     <h5 align="center"><strong>PLSP Ordering <br> System</strong></h5>
                 </span>
-
             </a>
 
 
@@ -104,12 +103,47 @@
                         data-accordion="false">
 
                         <li class="nav-item has-treeview">
-                            {{-- "nav-link active" --}}
                             <a href="{{ route('admin.dashboard') }}"
                                 class="{{ request()->is('admin') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-cutlery"></i>
+                                <p>
+                                    Products
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-tag"></i>
+                                <p>
+                                    Categories
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-money"></i>
+                                <p>
+                                    Top Up
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-file-excel-o"></i>
+                                <p>
+                                    Report
                                 </p>
                             </a>
                         </li>

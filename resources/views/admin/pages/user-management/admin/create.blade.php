@@ -20,7 +20,7 @@
     <div class="col-6 grid-margin stretch-card mt-3">
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="" method="POST">
                     {!! csrf_field() !!}
                     <div class="row mt-2">
                         <div class="col-12">
@@ -108,7 +108,5 @@
                 </form>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection

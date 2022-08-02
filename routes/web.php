@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
 //     // return redirect()->route('resident.login');
-//     return redirect()->route('resident.index');
+//     return redirect()->route('admin.login');
 // });
 
 
@@ -65,6 +65,20 @@ Route::group(
                 Route::get('edit/{id?}', ['as' => "edit", 'uses' => "UserManagementController@edit_admin"]);
                 Route::post('edit/{id?}', ['uses' => "UserManagementController@update_admin"]);
             });
+        });
+
+        Route::group(['prefix' => 'transactions', 'as' => "transactions."], function () {
+        });
+
+        Route::group(['prefix' => 'categories', 'as' => "categories."], function () {
+            Route::any('/', ['as' => "index", 'uses' => "CategoryController@index"]);
+
+            Route::get('create', ['as' => "create", 'uses' => "CategoryController@create"]);
+            Route::post('create', ['uses' => "CategoryController@store"]);
+
+            
+            Route::get('edit/{id?}', ['as' => "edit", 'uses' => "CategoryController@edit"]);
+            Route::post('edit/{id?}', ['uses' => "CategoryController@update"]);
         });
     }
 
