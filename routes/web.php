@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     // return redirect()->route('resident.login');
-//     return redirect()->route('admin.login');
-// });
+Route::get('/', function () {
+    // return redirect()->route('resident.login');
+    return redirect()->route('admin.login');
+});
 
 
 Route::group(
@@ -44,54 +44,55 @@ Route::group(
             Route::get('users', ['as' => "users", 'uses' => "UserManagementController@users"]);
             Route::post('users', ['uses' => "UserManagementController@store"]);
 
-            Route::get('get_user/{id}', ['uses' => "UserManagementController@get_user"]);
-            Route::post('update_user', ['uses' => "UserManagementController@update"]);
-            Route::post('approved_user/{id}', ['uses' => "UserManagementController@approvedUser"]);
-            Route::post('block_user/{id}', ['uses' => "UserManagementController@blockedUser"]);
-        });
+            // Route::get('get_user/{id}', ['uses' => "UserManagementController@get_user"]);
+            // Route::post('update_user', ['uses' => "UserManagementController@update"]);
+            // Route::post('approved_user/{id}', ['uses' => "UserManagementController@approvedUser"]);
+            // Route::post('block_user/{id}', ['uses' => "UserManagementController@blockedUser"]);
 
-        Route::group(['prefix' => 'users', 'as' => "users."], function () {
-            Route::group(['prefix' => 'student', 'as' => "student."], function () {
-                Route::any('/', ['as' => "index", 'uses' => "UserManagementController@students"]);
-                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
+
+            Route::group(['prefix' => 'users', 'as' => "users."], function () {
+                Route::group(['prefix' => 'student', 'as' => "student."], function () {
+                    Route::any('/', ['as' => "index", 'uses' => "UserManagementController@students"]);
+                    Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
+                });
+                Route::group(['prefix' => 'admin', 'as' => "admin."], function () {
+                    Route::any('/', ['as' => "index", 'uses' => "UserManagementController@admins"]);
+                    Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
+
+                    Route::get('create', ['as' => "create", 'uses' => "UserManagementController@create_admin"]);
+                    Route::post('create', ['uses' => "UserManagementController@store_admin"]);
+
+                    Route::get('edit/{id?}', ['as' => "edit", 'uses' => "UserManagementController@edit_admin"]);
+                    Route::post('edit/{id?}', ['uses' => "UserManagementController@update_admin"]);
+                });
             });
-            Route::group(['prefix' => 'admin', 'as' => "admin."], function () {
-                Route::any('/', ['as' => "index", 'uses' => "UserManagementController@admins"]);
-                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
 
-                Route::get('create', ['as' => "create", 'uses' => "UserManagementController@create_admin"]);
-                Route::post('create', ['uses' => "UserManagementController@store_admin"]);
-
-                Route::get('edit/{id?}', ['as' => "edit", 'uses' => "UserManagementController@edit_admin"]);
-                Route::post('edit/{id?}', ['uses' => "UserManagementController@update_admin"]);
+            Route::group(['prefix' => 'transactions', 'as' => "transactions."], function () {
             });
-        });
 
-        Route::group(['prefix' => 'transactions', 'as' => "transactions."], function () {
-        });
+            Route::group(['prefix' => 'categories', 'as' => "categories."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "CategoryController@index"]);
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "CategoryController@update_status"]);
 
-        Route::group(['prefix' => 'categories', 'as' => "categories."], function () {
-            Route::any('/', ['as' => "index", 'uses' => "CategoryController@index"]);
-            Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "CategoryController@update_status"]);
-
-            Route::get('create', ['as' => "create", 'uses' => "CategoryController@create"]);
-            Route::post('create', ['uses' => "CategoryController@store"]);
+                Route::get('create', ['as' => "create", 'uses' => "CategoryController@create"]);
+                Route::post('create', ['uses' => "CategoryController@store"]);
 
 
-            Route::get('edit/{id?}', ['as' => "edit", 'uses' => "CategoryController@edit"]);
-            Route::post('edit/{id?}', ['uses' => "CategoryController@update"]);
-        });
+                Route::get('edit/{id?}', ['as' => "edit", 'uses' => "CategoryController@edit"]);
+                Route::post('edit/{id?}', ['uses' => "CategoryController@update"]);
+            });
 
-        Route::group(['prefix' => 'products', 'as' => "products."], function () {
-            Route::any('/', ['as' => "index", 'uses' => "ProductController@index"]);
+            Route::group(['prefix' => 'products', 'as' => "products."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "ProductController@index"]);
 
-            Route::get('create', ['as' => "create", 'uses' => "ProductController@create"]);
-            Route::post('create', ['uses' => "ProductController@store"]);
+                Route::get('create', ['as' => "create", 'uses' => "ProductController@create"]);
+                Route::post('create', ['uses' => "ProductController@store"]);
 
-            Route::get('edit/{id?}', ['as' => "edit", 'uses' => "ProductController@edit"]);
-            Route::post('edit/{id?}', ['uses' => "ProductController@update"]);
+                Route::get('edit/{id?}', ['as' => "edit", 'uses' => "ProductController@edit"]);
+                Route::post('edit/{id?}', ['uses' => "ProductController@update"]);
 
-            Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "ProductController@update_status"]);
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "ProductController@update_status"]);
+            });
         });
     }
 
