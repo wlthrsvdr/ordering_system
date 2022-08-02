@@ -26,4 +26,12 @@ Route::group([
         Route::post('register.{format}', ['as' => "register", 'uses' => "AuthController@register"]);
         Route::post('show.{format}', ['as' => "show", 'uses' => "AuthController@show"]);
     });
+
+    Route::group(['prefix' => 'category', 'as' => "category."], function () {
+        Route::post('show.{format}', ['as' => "show", 'uses' => "CategoryController@show"]);
+    });
+
+    Route::group(['prefix' => 'product', 'as' => "product."], function () {
+        Route::post('show.{format}', ['as' => "show", 'uses' => "ProductController@show"]);
+    });
 });

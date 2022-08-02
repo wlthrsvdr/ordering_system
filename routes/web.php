@@ -93,6 +93,10 @@ Route::group(
 
                 Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "ProductController@update_status"]);
             });
+
+            Route::group(['prefix' => 'wallet', 'as' => "wallet."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "WalletController@index"]);
+            });
         });
     }
 

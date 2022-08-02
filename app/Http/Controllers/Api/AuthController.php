@@ -33,6 +33,7 @@ class AuthController extends Controller
         if (Auth::guard($this->guard)->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 'student'])) {
 
             $user =  auth($this->guard)->user();
+            $user_data =  User::where('id',   $user->id)->get();
 
             if ($user->account_status  == 'inactive') {
                 $this->response['status'] = FALSE;
@@ -45,7 +46,7 @@ class AuthController extends Controller
             $this->response['status'] = TRUE;
             $this->response['status_code'] = "LOGIN_SUCCESS";
             $this->response['msg'] = "Welcome {$user->name}!";
-            $this->response['data'] = $user;
+            $this->response['data'] = $user_data;
             $this->response_code = 200;
         } else {
             $this->response['status'] = FALSE;
@@ -153,7 +154,7 @@ class AuthController extends Controller
 
     public function show(Request $request)
     {
-        $user = User::find($request->get('id'));
+        $user = User::where('id', $request->get('id'))->get();
 
         if (!$user) {
             $this->response['status'] = FALSE;
@@ -166,7 +167,7 @@ class AuthController extends Controller
         $this->response['status'] = TRUE;
         $this->response['status_code'] = "PROFILE_INFO";
         $this->response['msg'] = "Profile information.";
-        $this->response['data'] = $user;
+        $this->response['data'] = json_decode($user, true);
         $this->response_code = 200;
 
         callback:
