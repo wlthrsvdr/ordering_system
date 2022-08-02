@@ -77,9 +77,21 @@ Route::group(
             Route::get('create', ['as' => "create", 'uses' => "CategoryController@create"]);
             Route::post('create', ['uses' => "CategoryController@store"]);
 
-            
+
             Route::get('edit/{id?}', ['as' => "edit", 'uses' => "CategoryController@edit"]);
             Route::post('edit/{id?}', ['uses' => "CategoryController@update"]);
+        });
+
+        Route::group(['prefix' => 'products', 'as' => "products."], function () {
+            Route::any('/', ['as' => "index", 'uses' => "ProductController@index"]);
+
+            Route::get('create', ['as' => "create", 'uses' => "ProductController@create"]);
+            Route::post('create', ['uses' => "ProductController@store"]);
+
+            Route::get('edit/{id?}', ['as' => "edit", 'uses' => "ProductController@edit"]);
+            Route::post('edit/{id?}', ['uses' => "ProductController@update"]);
+
+            Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "ProductController@update_status"]);
         });
     }
 

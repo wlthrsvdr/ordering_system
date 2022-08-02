@@ -64,7 +64,7 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Category Code</th>
+                                        {{-- <th>Category Code</th> --}}
                                         <th>Category Name</th>
                                         <th>Category Status</th>
                                         <th>Added By</th>
@@ -76,7 +76,7 @@
                                 <tbody>
                                     @forelse($categories as $index => $value)
                                         <tr>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($value->category_code)
                                                     <div class="mb5">
                                                         {{ $value->category_code }}
@@ -84,7 +84,7 @@
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if ($value->category_name)
                                                     <div class="mb5">

@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.dashboard') }}"
+                            <a href="{{ route('admin.products.index') }}"
                                 class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-cutlery"></i>
                                 <p>

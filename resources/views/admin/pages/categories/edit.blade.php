@@ -30,14 +30,14 @@
                                     {{ session()->get('notification-msg') }}
                                 </div>
                             @endif
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="input_category_code"><b>Category Code</b></label>
                                 <input type="text" class="form-control" id="input_category_code" placeholder=""
                                     value="{{ old('category_code', $category->category_code) }}" name="category_code">
                                 @if ($errors->first('category_code'))
                                     <p class="form-text text-danger">{{ $errors->first('category_code') }}</p>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="input_category"><b>Category Name</b></label>
                                 <input type="text" class="form-control" id="input_category" placeholder=""
