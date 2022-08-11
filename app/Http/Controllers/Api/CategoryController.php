@@ -23,18 +23,28 @@ class CategoryController extends Controller
     {
         $this->data['id'] = $request->get('id');
 
-        $category = Category::where(function ($query) {
-            if (strlen($this->data['id']) > 0) {
-                return $query->where('id', $this->data['id']);
-            }
-        })->orderBy('created_at', "DESC")
-            ->get();
 
-        $this->response['status'] = TRUE;
-        $this->response['status_code'] = "CATEGORY_INFO";
-        $this->response['msg'] = "Category information.";
-        $this->response['data'] = $category;
-        $this->response_code = 200;
+        try {
+            $category = Category::where(function ($query) {
+                if (strlen($this->data['id']) > 0) {
+                    return $query->where('id', $this->data['id']);
+                }
+            })->orderBy('created_at', "DESC")
+                ->get();
+
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "CATEGORY_INFO";
+            $this->response['msg'] = "Category information.";
+            $this->response['data'] = $category;
+            $this->response_code = 200;
+        } catch (\Exception $e) {
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "SERVER_ERROR";
+            $this->response['msg'] = "Server Error: Code #{$e->getMessage()}";
+            $this->response_code = 500;
+        }
+
+
 
         callback:
         return response()->json($this->response, $this->response_code);

@@ -13,7 +13,6 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('system.guest', ['except' => "logout"]);
-       
     }
 
 
@@ -28,7 +27,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
 
-        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
+        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 'admin'])) {
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Welcome back!");
 

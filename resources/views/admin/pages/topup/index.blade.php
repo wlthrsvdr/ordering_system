@@ -24,7 +24,6 @@
                 <span class="float-right">
                     <a href="{{ route('admin.users.student.index') }}" class="btn btn-default btn-sm">[Reset
                         Filter]</a>
-
                 </span>
             </div>
             <form action="">

@@ -11,12 +11,16 @@
 
     <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css" type="text/css">
 
-    <link rel="stylesheet" href={{ asset('assets/css/bootstrap.min.css') }} type="text/css">
+    {{-- <link rel="stylesheet" href={{ asset('assets/css/bootstrap.min.css') }} type="text/css"> --}}
 
-    <link rel="stylesheet" href={{ asset('assets/css/style.css') }} type="text/css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css">
 
     <link rel="stylesheet" href="/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
         type="text/css">
+
+    {{-- <link rel="stylesheet" href={{ asset('assets/css/style.css') }} type="text/css"> --}}
+
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css">
 
 </head>
 
@@ -42,7 +46,8 @@
                                 @endif
                                 <div class="form-group">
                                     <label>Email address</label>
-                                    <input type="email" class="form-control" placeholder="Enter email" name="email" />
+                                    <input type="email" class="form-control" placeholder="Enter email"
+                                        name="email" />
                                 </div>
 
                                 <div class="form-group">

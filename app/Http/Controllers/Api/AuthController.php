@@ -86,9 +86,11 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
+        $email_validation = User::where('email', $request->get('email'))
+            ->where('user_role', 'student')->first();
 
-        $email_validation = User::where('email', $request->get('email'))->first();
-        $student_num_validation = User::where('student_number', $request->get('student_number'))->first();
+        $student_num_validation = User::where('student_number', $request->get('student_number'))
+            ->where('user_role', 'student')->first();
 
 
         if ($request->get('password') != $request->get('confirm_password')) {
@@ -96,26 +98,23 @@ class AuthController extends Controller
             $this->response['status_code'] = "REGISTRATION_FAILED";
             $this->response['msg'] = "Password not match.";
             $this->response_code = 401;
-
             goto callback;
         }
 
-        if ($email_validation) {
+        if (!empty($email_validation)) {
             $this->response['status'] = FALSE;
             $this->response['status_code'] = "REGISTRATION_FAILED";
             $this->response['msg'] = "Email Already Exists.";
             $this->response_code = 401;
-
             goto callback;
         }
 
 
-        if ($student_num_validation) {
+        if (!empty($student_num_validation)) {
             $this->response['status'] = FALSE;
             $this->response['status_code'] = "REGISTRATION_FAILED";
             $this->response['msg'] = "Student Number Already Exists";
             $this->response_code = 401;
-
             goto callback;
         }
 
