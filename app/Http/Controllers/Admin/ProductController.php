@@ -68,6 +68,7 @@ class ProductController extends Controller
         try {
 
             $product = new Product;
+            $host =  $request->getSchemeAndHttpHost();
 
             if ($request->file('image')) {
                 $image = $request->file('image');
@@ -76,7 +77,7 @@ class ProductController extends Controller
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
-                $product->image_path = $destinationPath . '/' . $fileName;
+                $product->image_path = $host . '/uploads/product-images/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
             }
@@ -121,7 +122,6 @@ class ProductController extends Controller
         try {
 
             $product = Product::find($id);
-            $currentURL = URL::current();
             $host =  $request->getSchemeAndHttpHost();
 
             if ($request->file('image')) {
@@ -131,10 +131,9 @@ class ProductController extends Controller
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
-                $product->image_path = $destinationPath . '/' . $fileName;
+                $product->image_path = $host . '/uploads/product-images/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
-                dd($host . '/uploads/product-images/' . $fileName);
             }
 
 
@@ -143,7 +142,7 @@ class ProductController extends Controller
             $product->price = $request->get('price');
             $product->description = $request->get('description');
             $product->updated_by =  $user_data->id;
-            // $product->save();
+            $product->save();
 
             DB::commit();
             session()->flash('notification-status', "success");
