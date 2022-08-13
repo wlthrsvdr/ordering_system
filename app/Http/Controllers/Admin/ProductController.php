@@ -140,7 +140,7 @@ class ProductController extends Controller
             $product->price = $request->get('price');
             $product->description = $request->get('description');
             $product->updated_by =  $user_data->id;
-            // $product->save();
+            $product->save();
 
             DB::commit();
             session()->flash('notification-status', "success");
