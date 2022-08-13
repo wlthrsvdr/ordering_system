@@ -121,6 +121,7 @@ class ProductController extends Controller
         try {
 
             $product = Product::find($id);
+            $currentURL = Request::url();
 
             if ($request->file('image')) {
                 $image = $request->file('image');
@@ -132,7 +133,7 @@ class ProductController extends Controller
                 $product->image_path = $destinationPath . '/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
-                dd($destinationPath . '/' . $fileName);
+                dd($currentURL . '/uploads/product-images/' . $fileName);
             }
 
 
