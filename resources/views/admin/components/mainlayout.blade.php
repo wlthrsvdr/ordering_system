@@ -224,6 +224,7 @@
 
     {{-- <script type="text/javascript" src="/assets/js/{{ $js }}"></script> --}}
     {{-- <script type="text/javascript" src="/assets/js/UserManagement.js"></script> --}}
+    <script type="text/javascript" src="/assets/js/Product.js"></script>
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>

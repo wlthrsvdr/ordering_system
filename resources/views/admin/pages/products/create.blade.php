@@ -20,7 +20,7 @@
     <div class="col-6 grid-margin stretch-card mt-3">
         <div class="card">
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype=multipart/form-data>
                     {!! csrf_field() !!}
                     <div class="row mt-2">
                         <div class="col-12">
@@ -64,6 +64,15 @@
                                 @if ($errors->first('description'))
                                     <p class="form-text text-danger">{{ $errors->first('description') }}</p>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="input_file">Product Image</label>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="custom-file-input" id="input_img"
+                                        value="{{ old('image') }}">
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                </div>
+                                <img id="output" />
                             </div>
                             <div class="form-group">
                                 <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Go back to

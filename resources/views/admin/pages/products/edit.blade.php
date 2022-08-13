@@ -68,6 +68,20 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="input_file">Product Image</label>
+                                <div class="custom-file">
+                                    <input type="file" name="image" class="custom-file-input" id="input_img"
+                                        value="{{ old('image') }}">
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                </div>
+                                <div class="img-fluid px-3 gallery mt-2">
+                                    {{-- <a href="{{ $product->image_path }}" title="Uploaded Image Product"> --}}
+                                    <img src={{ asset('uploads/product-images/' . $product->image_filename) }}
+                                        class="img-rounded" alt="attachment" width="335" height="267" id="output">
+                                    {{-- </a> --}}
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Go back to
                                     Product
                                     List</a>
