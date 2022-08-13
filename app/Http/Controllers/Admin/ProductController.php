@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
         $this->data['auth'] = $request->user();
 
-        $this->data['categories'] = Category::select('id', 'category_name')->groupBy('category_name', 'id')->get();
+        $this->data['categories'] = Category::select('id', 'category_name')->where('status', 'active')->groupBy('category_name', 'id')->get();
 
         return view('admin.pages.products.create', $this->data);
     }
@@ -108,7 +108,7 @@ class ProductController extends Controller
     {
         $this->data['product'] = Product::find($id);
 
-        $this->data['categories'] = Category::select('id', 'category_name')->groupBy('category_name', 'id')->get();
+        $this->data['categories'] = Category::select('id', 'category_name')->where('status', 'active')->groupBy('category_name', 'id')->get();
         // dd($this->data);
         return view('admin.pages.products.edit', $this->data);
     }

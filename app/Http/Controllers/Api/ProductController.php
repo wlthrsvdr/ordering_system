@@ -23,11 +23,12 @@ class ProductController extends Controller
     {
         $this->data['id'] = $request->get('id');
 
-        $product = Product::where(function ($query) {
-            if (strlen($this->data['id']) > 0) {
-                return $query->where('id', $this->data['id']);
-            }
-        })->orderBy('created_at', "DESC")
+        $product = Product::where('status', 'available')
+            ->where(function ($query) {
+                if (strlen($this->data['id']) > 0) {
+                    return $query->where('id', $this->data['id']);
+                }
+            })->orderBy('created_at', "DESC")
             ->get();
 
         $this->response['status'] = TRUE;

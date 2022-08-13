@@ -25,11 +25,12 @@ class CategoryController extends Controller
 
 
         try {
-            $category = Category::where(function ($query) {
-                if (strlen($this->data['id']) > 0) {
-                    return $query->where('id', $this->data['id']);
-                }
-            })->orderBy('created_at', "DESC")
+            $category = Category::where('status', 'active')
+                ->where(function ($query) {
+                    if (strlen($this->data['id']) > 0) {
+                        return $query->where('id', $this->data['id']);
+                    }
+                })->orderBy('created_at', "DESC")
                 ->get();
 
             $this->response['status'] = TRUE;
