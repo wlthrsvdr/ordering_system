@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\{Category, Product, User};
 use Illuminate\Support\Facades\Auth;
-use DB, Str, File;
+use DB, Str, File, URL;
 
 class ProductController extends Controller
 {
@@ -121,7 +121,7 @@ class ProductController extends Controller
         try {
 
             $product = Product::find($id);
-            $currentURL = Request::url();
+            $currentURL = URL::current();
 
             if ($request->file('image')) {
                 $image = $request->file('image');
