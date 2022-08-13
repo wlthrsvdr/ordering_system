@@ -122,6 +122,7 @@ class ProductController extends Controller
 
             $product = Product::find($id);
             $currentURL = URL::current();
+            $host = request()->getHttpHost();
 
             if ($request->file('image')) {
                 $image = $request->file('image');
@@ -133,7 +134,7 @@ class ProductController extends Controller
                 $product->image_path = $destinationPath . '/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
-                dd($currentURL . '/uploads/product-images/' . $fileName);
+                dd($host . '/uploads/product-images/' . $fileName);
             }
 
 
