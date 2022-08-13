@@ -76,7 +76,7 @@ class ProductController extends Controller
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
-                $product->image_path = $file;
+                $product->image_path = $destinationPath . '/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
             }
@@ -129,17 +129,18 @@ class ProductController extends Controller
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
-                $product->image_path = $file;
+                $product->image_path = $destinationPath . '/' . $fileName;
                 // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
                 // $product->image_path = '/storage/' . $filePath;
             }
+
 
             $product->product_name = $request->get('product_name');
             $product->product_category = $request->get('product_category');
             $product->price = $request->get('price');
             $product->description = $request->get('description');
             $product->updated_by =  $user_data->id;
-            $product->save();
+            // $product->save();
 
             DB::commit();
             session()->flash('notification-status', "success");
