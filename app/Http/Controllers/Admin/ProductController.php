@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\{Category, Product, User};
 use Illuminate\Support\Facades\Auth;
-use DB, Str;
+use DB, Str, File;
 
 class ProductController extends Controller
 {
@@ -73,6 +73,12 @@ class ProductController extends Controller
                 $image = $request->file('image');
                 $fileName = time() . '_' . $image->getClientOriginalName();
                 $destinationPath = public_path('uploads/product-images');
+
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
@@ -126,6 +132,12 @@ class ProductController extends Controller
                 $image = $request->file('image');
                 $fileName = time() . '_' . $image->getClientOriginalName();
                 $destinationPath = public_path('uploads/product-images');
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
+
+
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
