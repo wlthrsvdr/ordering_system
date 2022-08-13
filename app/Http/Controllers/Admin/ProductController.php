@@ -73,12 +73,6 @@ class ProductController extends Controller
                 $image = $request->file('image');
                 $fileName = time() . '_' . $image->getClientOriginalName();
                 $destinationPath = public_path('uploads/product-images');
-
-
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
-                }
-
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
@@ -132,12 +126,6 @@ class ProductController extends Controller
                 $image = $request->file('image');
                 $fileName = time() . '_' . $image->getClientOriginalName();
                 $destinationPath = public_path('uploads/product-images');
-
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
-                }
-
-
                 $file = $image->move($destinationPath, $fileName);
                 $product->image_directory = 'uploads/product-images';
                 $product->image_filename =  $fileName;
