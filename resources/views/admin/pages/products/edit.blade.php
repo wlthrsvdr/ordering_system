@@ -33,11 +33,11 @@
                             <div class="form-group">
                                 <label for="">Product Category</label>
                                 <select class="custom-select mw-100" aria-label="Default select example"
-                                    name="product_category" value={{ old('product_category') }}>
+                                    name="product_category" value={{ old('product_category', $product->product_category) }}>
                                     <option value="">--Product Categories--</option>
                                     @foreach ($categories as $index => $values)
                                         <option value={{ $values->id }}
-                                            {{ $product->id == $values->id ? 'selected' : '' }}>
+                                            {{ $product->product_category == $values->id ? 'selected' : '' }}>
                                             {{ $values->category_name }}
                                         </option>
                                     @endforeach
