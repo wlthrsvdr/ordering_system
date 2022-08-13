@@ -22,13 +22,27 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         $this->data['id'] = $request->get('id');
+        $this->data['keyword'] = $request->get('keyword');
+        $this->data['category'] = $request->get('category');
 
         $product = Product::where('status', 'available')
             ->where(function ($query) {
                 if (strlen($this->data['id']) > 0) {
                     return $query->where('id', $this->data['id']);
                 }
-            })->orderBy('created_at', "DESC")
+            })
+
+            ->where(function ($query) {
+                if (strlen($this->data['keyword']) > 0) {
+                    return $query->whereRaw("LOWER(product_name)  LIKE  '{$this->data['keyword']}%'");
+                }
+            })
+            ->where(function ($query) {
+                if (strlen($this->data['category']) > 0) {
+                    return $query->where('product_category', $this->data['category']);
+                }
+            })
+            ->orderBy('created_at', "DESC")
             ->get();
 
         $this->response['status'] = TRUE;
