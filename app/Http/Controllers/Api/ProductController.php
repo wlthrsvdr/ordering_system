@@ -31,7 +31,6 @@ class ProductController extends Controller
                     return $query->where('id', $this->data['id']);
                 }
             })
-
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("LOWER(product_name)  LIKE  '{$this->data['keyword']}%'");

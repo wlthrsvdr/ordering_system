@@ -122,6 +122,18 @@ class ProductController extends Controller
 
             $product = Product::find($id);
 
+            if ($request->file('image')) {
+                $image = $request->file('image');
+                $fileName = time() . '_' . $image->getClientOriginalName();
+                $destinationPath = public_path('uploads/product-images');
+                $file = $image->move($destinationPath, $fileName);
+                $product->image_directory = 'uploads/product-images';
+                $product->image_filename =  $fileName;
+                $product->image_path = $file;
+                // $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
+                // $product->image_path = '/storage/' . $filePath;
+            }
+
             $product->product_name = $request->get('product_name');
             $product->product_category = $request->get('product_category');
             $product->price = $request->get('price');
