@@ -122,7 +122,7 @@ class ProductController extends Controller
 
             $product = Product::find($id);
             $currentURL = URL::current();
-            $host = request()->getHttpHost();
+            $host =  $request->getSchemeAndHttpHost();
 
             if ($request->file('image')) {
                 $image = $request->file('image');
