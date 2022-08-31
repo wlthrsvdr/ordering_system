@@ -23,15 +23,22 @@
         <div class="container-fluid">
 
             <div class="row">
+                <div class="col-sm-12">
+                    <h3>User Count</h3>
+                </div>
+
+            </div>
+
+            <div class="row">
                 <div class="col-lg-4 col-6">
 
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3><i class="fa fa-clock-o"></i>&nbsp; {{ '0' }}</h3>
-                            <p>Total Pending Orders</p>
+                            <h3><i class="fa fa-graduation-cap"></i>&nbsp; {{ $student_count }}</h3>
+                            <p>Total Registered Student</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-clock-o"></i>
+                            <i class="fa fa-graduation-cap"></i>
                         </div>
                         <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -41,12 +48,12 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3><i class="fa fa-pie-chart"></i> &nbsp; {{ '0' }}</h3>
+                            <h3><i class="fa fa-user"></i> &nbsp; {{ $personnel_count }}</h3>
 
-                            <p>Total Paid Order Orders</p>
+                            <p>Total Registered Personnel</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-pie-chart"></i>
+                            <i class="fa fa-user"></i>
                         </div>
                         <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -56,18 +63,18 @@
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3><i class="fa fa-line-chart"></i>&nbsp; {{ '0' }}</h3>
+                            <h3><i class="fa fa-shield"></i>&nbsp; {{ $admin_count }}</h3>
 
-                            <p>Total Orders</p>
+                            <p>Total Registered Admin</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-line-chart"></i>
+                            <i class="fa fa-shield"></i>
                         </div>
                         <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
-            
+
             {{-- <div class="row">
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">

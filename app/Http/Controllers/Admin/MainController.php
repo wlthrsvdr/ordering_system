@@ -20,9 +20,9 @@ class MainController extends Controller
 
     public function index()
     {
-        // $this->data['user'] = User::all()->where('user_role', 1)->count();
-        // $this->data['admins'] = User::all()->where('user_role', 2)->count();
-        // $this->data['annoucements'] = Announcement::all()->count();
+        $this->data['student_count'] = User::all()->where('user_role', 'student')->count();
+        $this->data['admin_count'] = User::all()->where('user_role', 'admin')->count();
+        $this->data['personnel_count'] = User::all()->where('user_role', 'personnel')->count();
 
         // $this->data['pending_request'] = Requests::where('is_completed', 0)->count();
 
