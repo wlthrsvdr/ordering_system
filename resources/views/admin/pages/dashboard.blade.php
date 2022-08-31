@@ -24,7 +24,7 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>User Count</h3>
+                    <h3>Users</h3>
                 </div>
 
             </div>
