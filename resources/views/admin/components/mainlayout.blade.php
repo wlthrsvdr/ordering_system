@@ -131,13 +131,22 @@
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="{{ route('admin.wallet.index') }}"
+                                class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-shopping-cart"></i>
+                                <p>
+                                    Orders
+                                </p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.wallet.index') }}"
                                 class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
                                     Top Up
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item has-treeview">
                             <a href="{{ route('admin.dashboard') }}"
                                 class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
