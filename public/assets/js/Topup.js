@@ -30,6 +30,7 @@ $(document).ready(function () {
                     $('#tap_container').hide();
                     $('#info_contianer').show();
 
+                    $('#userId').val(res.id);
                     $('#input_student_num').val(res.student_number);
                     $('#input_firstname').val(res.firstname);
                     $('#input_middlename').val(res.middlename);

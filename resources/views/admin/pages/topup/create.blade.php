@@ -44,6 +44,7 @@
                             <form action="" method="POST" enctype=multipart/form-data>
                                 {!! csrf_field() !!}
                                 <input type="hidden" id="rfid_info_text" name="rfid_text">
+                                <input type="hidden" id="userId" name="userId">
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="input_student_num"><b>Student Number/Visitor Number</b></label>
