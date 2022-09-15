@@ -15,7 +15,7 @@ class UserManagementController extends Controller
 
     public function __construct()
     {
-        $this->data['js'] = "UserManagement.js";
+        $this->data['js'] = "UserManagement";
         $this->middleware('system.guest', ['except' => "logout"]);
     }
 

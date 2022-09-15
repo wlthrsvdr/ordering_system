@@ -15,7 +15,7 @@ class WalletController extends Controller
 
     public function __construct()
     {
-        $this->data['js'] = "Topup.js";
+        $this->data['js'] = "Topup";
         $this->middleware('system.guest', ['except' => "logout"]);
     }
 
@@ -42,5 +42,36 @@ class WalletController extends Controller
             ->paginate($this->per_page);
 
         return view('admin.pages.topup.index', $this->data);
+    }
+
+
+    public function topup(Request $request)
+    {
+
+        $this->data['auth'] = $request->user();
+
+        return view('admin.pages.topup.create', $this->data);
+    }
+
+
+
+    public function store(Request $request)
+    {
+    }
+
+    public function get_info(Request $request, $id = '')
+    {
+        // $user = User::find(1);
+
+        $user = User::where('rfid', $id)->first();
+
+        return $user;
+        // if ($user) {
+        //     return $user;
+        // } else {
+        //     session()->flash('notification-status', "failed");
+        //     session()->flash('notification-msg', "Invalid Rfid");
+        //     // return redirect()->back();
+        // }
     }
 }

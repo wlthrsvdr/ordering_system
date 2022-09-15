@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->data['js'] = "Product.js";
+        $this->data['js'] = "Product";
         $this->middleware('system.guest', ['except' => "logout"]);
     }
 

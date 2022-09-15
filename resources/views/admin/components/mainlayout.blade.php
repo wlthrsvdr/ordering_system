@@ -26,6 +26,8 @@
 
     <link rel="stylesheet" href="/assets/plugins/summernote/summernote-bs4.css">
 
+    <link rel="stylesheet" href="/assets/css/style.css">
+
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css"
@@ -129,17 +131,17 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.wallet.index') }}"
+                        {{-- <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.order.index') }}"
                                 class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-shopping-cart"></i>
                                 <p>
                                     Orders
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.wallet.index') }}"
+                            <a href="{{ route('admin.wallet.create') }}"
                                 class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
@@ -147,15 +149,15 @@
                                 </p>
                             </a>
                         </li> --}}
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.dashboard') }}"
+                        {{-- <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.report.index') }}"
                                 class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-file-excel-o"></i>
                                 <p>
                                     Report
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
@@ -233,7 +235,7 @@
 
     {{-- <script type="text/javascript" src="/assets/js/{{ $js }}"></script> --}}
     {{-- <script type="text/javascript" src="/assets/js/UserManagement.js"></script> --}}
-    <script type="text/javascript" src="/assets/js/Product.js"></script>
+    {{-- <script type="text/javascript" src="/assets/js/Product.js"></script> --}}
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -271,6 +273,11 @@
     <script type="text/javascript" src="/assets/dist/js/adminlte.js"></script>
 
     <script type="text/javascript" src="/assets/dist/js/pages/dashboard.js"></script>
+
+    <script type="text/javascript" src="/assets/js/{{ $js }}.js"></script>
+    {{-- <script type="text/javascript" src="/assets/js/Topup.js"></script>
+
+    <script type="text/javascript" src="/assets/js/Order.js"></script> --}}
 
     <script type="text/javascript" src="/assets/dist/js/demo.js"></script>
 

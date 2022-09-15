@@ -96,6 +96,23 @@ Route::group(
 
             Route::group(['prefix' => 'wallet', 'as' => "wallet."], function () {
                 Route::any('/', ['as' => "index", 'uses' => "WalletController@index"]);
+
+                Route::get('create', ['as' => "create", 'uses' => "WalletController@topup"]);
+                Route::post('create', ['uses' => "WalletController@store"]);
+
+                Route::get('get-info/{id?}', ['as' => "get-info", 'uses' => "WalletController@get_info"]);
+            });
+
+            Route::group(['prefix' => 'order', 'as' => "order."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "OrderController@index"]);
+
+                Route::any('pay-via-card', ['as' => "pay-via-card", 'uses' => "OrderController@rfid_pay"]);
+            });
+
+            Route::group(['prefix' => 'report', 'as' => "report."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "ReportController@index"]);
+
+                Route::any('export', ['as' => "export", 'uses' => "ReportController@generate_report"]);
             });
         });
     }

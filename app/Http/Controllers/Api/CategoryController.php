@@ -38,6 +38,7 @@ class CategoryController extends Controller
             $this->response['msg'] = "Category information.";
             $this->response['data'] = $category;
             $this->response_code = 200;
+            // dd($category);
         } catch (\Exception $e) {
             $this->response['status'] = FALSE;
             $this->response['status_code'] = "SERVER_ERROR";
@@ -50,4 +51,5 @@ class CategoryController extends Controller
         callback:
         return response()->json($this->response, $this->response_code);
     }
+
 }

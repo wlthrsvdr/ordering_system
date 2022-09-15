@@ -20,4 +20,19 @@
 .img-fluid {
     max-width: 100%;
     height: auto;
-  }
+}
+
+.tap_img {
+    height: 450px;
+
+}
+
+/* .tap-container {
+    position: absolute;
+    height: 700px;
+    width: 100%;
+    background-image: url('../imgs/tap.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+} */

@@ -44,6 +44,8 @@ class ProductController extends Controller
             ->orderBy('created_at', "DESC")
             ->get();
 
+            // dd($product);
+
         $this->response['status'] = TRUE;
         $this->response['status_code'] = "PRODUCT_LIST";
         $this->response['msg'] = "Product information.";
@@ -52,5 +54,9 @@ class ProductController extends Controller
 
         callback:
         return response()->json($this->response, $this->response_code);
+    }
+
+    public function store(Request $request)
+    {
     }
 }

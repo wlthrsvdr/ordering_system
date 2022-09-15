@@ -25,6 +25,8 @@ Route::group([
 
         Route::post('register.{format}', ['as' => "register", 'uses' => "AuthController@register"]);
         Route::post('show.{format}', ['as' => "show", 'uses' => "AuthController@show"]);
+        Route::post('update.{format}', ['as' => "update", 'uses' => "AuthController@update"]);
+        Route::post('forgot-password.{format}', ['as' => "forgot-password", 'uses' => "AuthController@forgot_password"]);
     });
 
     Route::group(['prefix' => 'category', 'as' => "category."], function () {
@@ -33,5 +35,11 @@ Route::group([
 
     Route::group(['prefix' => 'product', 'as' => "product."], function () {
         Route::post('show.{format}', ['as' => "show", 'uses' => "ProductController@show"]);
+    });
+
+    Route::group(['prefix' => 'order', 'as' => "order."], function () {
+        Route::post('create.{format}', ['as' => "create", 'uses' => "OrderController@store"]);
+        Route::post('show.{format}', ['as' => "show", 'uses' => "OrderController@show"]);
+        Route::post('check-unpaid.{format}', ['as' => "check-unpaid", 'uses' => "OrderController@check_unpaid_order"]);
     });
 });

@@ -172,4 +172,100 @@ class AuthController extends Controller
         callback:
         return response()->json($this->response, $this->response_code);
     }
+
+    public function forgot_password(Request $request)
+    {
+        $user = User::where('email', $request->get('email'))->get();
+
+        if (!$user) {
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "INVALID_CREDENDIAL";
+            $this->response['msg'] = "Email not found.";
+            $this->response_code = 401;
+            goto callback;
+        }
+
+        $user->password = bcrypt($request->get('password'));
+        $user->save();
+
+        $this->response['status'] = TRUE;
+        $this->response['status_code'] = "PROFILE_INFO";
+        $this->response['msg'] = "Profile information.";
+        $this->response['data'] = json_decode($user, true);
+        $this->response_code = 200;
+
+        callback:
+        return response()->json($this->response, $this->response_code);
+    }
+
+    public function update(Request $request)
+    {
+        $email_validation = User::where('email', $request->get('email'))
+            ->where('user_role', 'student')
+            ->where('id', '!=', $request->get('userId'))
+            ->first();
+
+        $student_num_validation = User::where('student_number', $request->get('student_number'))
+            ->where('user_role', 'student')
+            ->where('id', '!=', $request->get('userId'))
+            ->first();
+
+
+        if ($request->get('password') != $request->get('confirm_password')) {
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "UPDATE_FAILED";
+            $this->response['msg'] = "Password not match.";
+            $this->response_code = 401;
+            goto callback;
+        }
+
+        if (!empty($email_validation)) {
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "UPDATE_FAILED";
+            $this->response['msg'] = "Email Already Exists.";
+            $this->response_code = 401;
+            goto callback;
+        }
+
+
+        if (!empty($student_num_validation)) {
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "UPDATE_FAILED";
+            $this->response['msg'] = "Student Number Already Exists";
+            $this->response_code = 401;
+            goto callback;
+        }
+
+
+        try {
+            DB::beginTransaction();
+            $user = User::find($request->get('userId'));
+            $user->student_number = $request->get('student_number');
+            $user->firstname = $request->get('firstname');
+            $user->middlename = $request->get('middlename');
+            $user->lastname = $request->get('lastname');
+            $user->suffix = $request->get('suffix');
+            $user->email = $request->get('email');
+            $user->password = bcrypt($request->get('password'));
+            $user->user_role = 'student';
+            $user->account_status = 'active';
+            $user->save();
+
+            DB::commit();
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "UPDATED";
+            $this->response['msg'] = "Successfully updated.";
+            $this->response_code = 200;
+        } catch (\Throwable $e) {
+            DB::rollback();
+
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "SERVER_ERROR";
+            $this->response['msg'] = "Server Error: Code #{$e->getMessage()}";
+            $this->response_code = 500;
+        }
+
+        callback:
+        return response()->json($this->response, $this->response_code);
+    }
 }

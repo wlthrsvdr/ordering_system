@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('system.guest', ['except' => "logout"]);
+        $this->data['js'] = "Category";
     }
 
 
