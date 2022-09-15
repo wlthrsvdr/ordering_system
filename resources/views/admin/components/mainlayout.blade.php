@@ -140,7 +140,7 @@
                                 </p>
                             </a>
                         </li> --}}
-                        <li class="nav-item has-treeview">
+                        {{-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
@@ -158,14 +158,8 @@
                                         </p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{ route('admin.users.student.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Students</p>
-                                    </a>
-                                </li> --}}
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.wallet.create') }}"
                                 class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
