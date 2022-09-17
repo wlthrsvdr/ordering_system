@@ -30,6 +30,7 @@ class RegisteredRfid extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['name'];
 
     /**
      * The attributes that should be cast to native types.

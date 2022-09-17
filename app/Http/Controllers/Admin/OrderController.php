@@ -31,7 +31,7 @@ class OrderController extends Controller
         // $this->data['start_date'] = Carbon::now()->format("Y-m-d");
         $this->data['end_date'] = Carbon::now()->format("Y-m-d");
 
-        $this->data['orders'] = Order::with('orderBy')
+        $this->data['orders'] = Order::with('paidBy')
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("transaction_number LIKE  UPPER('{$this->data['keyword']}%')");
@@ -46,7 +46,7 @@ class OrderController extends Controller
             ->where(DB::raw("DATE(created_at)"), '<=', $this->data['end_date'])
             ->orderBy('created_at', "DESC")
             ->paginate($this->per_page);
-
+// dd($this->data['orders']);
 
         return view('admin.pages.order.index', $this->data);
     }
@@ -77,6 +77,7 @@ class OrderController extends Controller
                 $check_balance->save();
 
                 $order_info->status = "paid";
+                $order_info->paid_by =  $check_balance->id;
                 $order_info->save();
 
                 $this->data['msg'] = "Payment success.";

@@ -45,4 +45,9 @@ class Order extends Authenticatable
     {
         return $this->belongsTo('App\Models\User', 'order_by', 'id');
     }
+
+    public function paidBy()
+    {
+        return $this->belongsTo('App\Models\RegisteredRfid', 'paid_by', 'id');
+    }
 }

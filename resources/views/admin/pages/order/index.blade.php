@@ -85,6 +85,7 @@
                                         {{-- <th>Order By</th> --}}
                                         <th>Status</th>
                                         <th>Order Date</th>
+                                        <th>Paid By</th>
                                         <th>Paid Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -122,15 +123,6 @@
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
                                             </td>
-                                            {{-- <td>
-                                                @if ($value->orderBy->name)
-                                                    <div class="mb5">
-                                                        {{ $value->orderBy->name }}
-                                                    </div>
-                                                @else
-                                                    <div class="mb5">{{ '-' }}</div>
-                                                @endif
-                                            </td> --}}
                                             <td>
                                                 @if ($value->status)
                                                     @if ($value->status == 'paid')
@@ -160,6 +152,15 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if ($value->paidBy)
+                                                    <div class="mb5">
+                                                        {{ $value->paidBy->name }}
+                                                    </div>
+                                                @else
+                                                    <div class="mb5">{{ '-' }}</div>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if ($value->paid_date)
                                                     <div class="mb5">
                                                         {{ $value->paid_date->format('d F Y') }}
@@ -183,7 +184,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="8">
+                                            <td colspan="9">
                                                 <p>No record found yet.</p>
                                             </td>
                                         </tr>

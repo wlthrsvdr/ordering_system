@@ -169,7 +169,7 @@ class WalletController extends Controller
 
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Top up success.");
-            return redirect()->route('admin.wallet.create1');
+            return redirect()->route('admin.wallet.topup');
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");
