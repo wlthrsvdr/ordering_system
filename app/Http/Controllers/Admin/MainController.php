@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\{Order, User};
+use App\Models\{Order, RegisteredRfid, User};
 
 use Carbon\Carbon, DB;
 
@@ -27,7 +27,7 @@ class MainController extends Controller
         $this->data['end_month'] = Carbon::now()->endOfMonth()->format("Y-m-d");
         $this->data['today_date'] = Carbon::now()->format("Y-m-d");
 
-        $this->data['student_count'] = User::all()->where('user_role', 'student')->count();
+        $this->data['student_count'] = RegisteredRfid::all()->count();
         $this->data['admin_count'] = User::all()->where('user_role', 'admin')->count();
         $this->data['personnel_count'] = User::all()->where('user_role', 'personnel')->count();
 

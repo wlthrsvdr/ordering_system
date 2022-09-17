@@ -97,9 +97,13 @@ Route::group(
             Route::group(['prefix' => 'wallet', 'as' => "wallet."], function () {
                 Route::any('/', ['as' => "index", 'uses' => "WalletController@index"]);
 
-                Route::get('create', ['as' => "create", 'uses' => "WalletController@topup"]);
+                Route::get('create', ['as' => "create", 'uses' => "WalletController@create"]);
                 Route::post('create', ['uses' => "WalletController@store"]);
 
+                Route::get('topup', ['as' => "topup", 'uses' => "WalletController@goto_topup"]);
+                Route::post('topup', ['uses' => "WalletController@store_topup"]);
+
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "WalletController@update_status"]);
                 Route::get('get-info/{id?}', ['as' => "get-info", 'uses' => "WalletController@get_info"]);
             });
 

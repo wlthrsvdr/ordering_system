@@ -34,11 +34,11 @@
 
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3><i class="fa fa-graduation-cap"></i>&nbsp; {{ $student_count }}</h3>
-                            <p>Total Registered Student</p>
+                            <h3><i class="fa fa-credit-card"></i>&nbsp; {{ $student_count }}</h3>
+                            <p>Total Registered Card</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-graduation-cap"></i>
+                            <i class="fa fa-credit-card"></i>
                         </div>
                         <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

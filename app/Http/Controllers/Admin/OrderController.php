@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\{Category, Order, User};
+use App\Models\{Category, Order, RegisteredRfid, User};
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DB, Str;
@@ -55,9 +55,15 @@ class OrderController extends Controller
     public function rfid_pay(Request $request)
     {
 
-        $check_balance = User::where('rfid', $request->get('card'))->first();
+        $check_balance = RegisteredRfid::where('rfid_number', $request->get('card'))->first();
         $order_info = Order::find($request->get('orderId'));
 
+        if ($check_balance->card_status == 'inactive') {
+            $this->data['msg'] = "Inactive Card. Please contact the administrator.";
+            $this->data['status_code'] = 401;
+
+            return $this->data;
+        }
 
         if (!$check_balance) {
             $this->data['msg'] = "Invalid Card. Please contact the administrator.";

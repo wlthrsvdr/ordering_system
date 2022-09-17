@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\{Topup, User};
+use App\Models\{RegisteredRfid, Topup, User};
 use Illuminate\Support\Facades\Auth;
 use DB, Str;
 
@@ -26,27 +26,18 @@ class WalletController extends Controller
         $this->data['keyword'] = Str::lower($request->get('keyword'));
         $this->data['status'] = $request->get('status');
 
-        $this->data['students'] = User::where('user_role', 'student')
-            ->where(function ($query) {
-                if (strlen($this->data['keyword']) > 0) {
-                    return $query->whereRaw("firstname LIKE  UPPER('{$this->data['keyword']}%')")
-                        ->orWhereRaw("LOWER(lastname)  LIKE  '{$this->data['keyword']}%'")
-                        ->orWhereRaw("LOWER(email)  LIKE  '{$this->data['keyword']}%'")
-                        ->orWhereRaw("LOWER(student_number)  LIKE  '{$this->data['keyword']}%'");
-                }
-            })
-            ->where(function ($query) {
-                if (strlen($this->data['status']) > 0) {
-                    return $query->where('account_status', $this->data['status']);
-                }
-            })->orderBy('created_at', "DESC")
+        $this->data['data'] = RegisteredRfid::where(function ($query) {
+            if (strlen($this->data['keyword']) > 0) {
+                return $query->whereRaw("name LIKE  UPPER('{$this->data['keyword']}%')");
+            }
+        })->orderBy('created_at', "DESC")
             ->paginate($this->per_page);
 
         return view('admin.pages.topup.index', $this->data);
     }
 
 
-    public function topup(Request $request)
+    public function create(Request $request)
     {
 
         $this->data['auth'] = $request->user();
@@ -60,10 +51,99 @@ class WalletController extends Controller
     {
         $user = Auth::guard('admin')->user();
 
+
+        $if_exists_card = RegisteredRfid::where('rfid_number', $request->get('rfid_text'))->first();
+
+        if ($if_exists_card) {
+            session()->flash('notification-status', "error");
+            session()->flash('notification-msg', "RFID number already exist.");
+            return redirect()->route('admin.wallet.create');
+        }
+
         DB::beginTransaction();
         try {
 
-            $student = User::find($request->get('userId'));
+            $topup = new RegisteredRfid;
+
+            $topup->firstname = $request->get('firstname');
+            $topup->middlename = $request->get('middlename');
+            $topup->lastname = $request->get('lastname');
+            $topup->contact_number = $request->get('contact_number');
+            $topup->rfid_number = $request->get('rfid_text');
+            $topup->e_money = $request->get('amount');
+            $topup->registered_by = $user->id;
+            $topup->save();
+
+
+            if ($topup) {
+                $history = new Topup;
+
+                $history->topup_by = $topup->id;
+                $history->topup_to = $request->get('userId');
+                $history->amount = $request->get('amount');
+                $history->save();
+
+                $history->transaction_number = 'PLSP' . $this->codeGenerate() . $topup->id;
+                $history->save();
+
+                if ($history) {
+                    $history->status = 'completed';
+                    $history->save();
+                }
+            }
+
+            // $student = User::find($request->get('userId'));
+            // $topup = new Topup;
+
+            // $student->e_money = (int)$student->e_money + (int)$request->get('amount');
+            // $student->save();
+
+            // if ($student) {
+            //     $topup->topup_by = $user->id;
+            //     $topup->topup_to = $request->get('userId');
+            //     $topup->amount = $request->get('amount');
+            //     $topup->save();
+
+            //     $topup->transaction_number = 'PLSP' . $this->codeGenerate() . $topup->id;
+            //     $topup->save();
+
+            //     if ($topup) {
+            //         $topup->status = 'completed';
+            //         $topup->save();
+            //     }
+            // }
+
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Card Registration success.");
+            return redirect()->route('admin.wallet.create');
+        } catch (\Throwable $e) {
+            DB::rollback();;
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+    }
+
+    public function goto_topup(Request $request)
+    {
+
+        $this->data['auth'] = $request->user();
+
+        return view('admin.pages.topup.create1', $this->data);
+    }
+
+
+
+    public function store_topup(Request $request)
+    {
+        $user = Auth::guard('admin')->user();
+
+        DB::beginTransaction();
+        try {
+
+            $student = RegisteredRfid::find($request->get('userId'));
             $topup = new Topup;
 
             $student->e_money = (int)$student->e_money + (int)$request->get('amount');
@@ -84,11 +164,12 @@ class WalletController extends Controller
                 }
             }
 
+
             DB::commit();
 
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Top up success.");
-            return redirect()->route('admin.wallet.create');
+            return redirect()->route('admin.wallet.create1');
         } catch (\Throwable $e) {
             DB::rollback();;
             session()->flash('notification-status', "failed");
@@ -101,7 +182,9 @@ class WalletController extends Controller
     {
         // $user = User::find(1);
 
-        $user = User::where('rfid', $id)->first();
+        // $user = User::where('rfid', $id)->first();
+
+        $user = RegisteredRfid::where('rfid_number', $id)->first();
 
         return $user;
         // if ($user) {
@@ -111,6 +194,29 @@ class WalletController extends Controller
         //     session()->flash('notification-msg', "Invalid Rfid");
         //     // return redirect()->back();
         // }
+    }
+
+    public function update_status(Request $request, $id)
+    {
+
+        $user_data  = RegisteredRfid::where('id', $id)->first();
+
+        DB::beginTransaction();
+        try {
+
+            $user_data->card_status =   $user_data->card_status ==  'active' ? 'inactive' : 'active';
+            $user_data->save();
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Update card status successfully.");
+            return redirect()->back();
+        } catch (\Throwable $e) {
+            DB::rollback();;
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
     }
 
     function codeGenerate()

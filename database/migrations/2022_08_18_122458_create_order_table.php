@@ -16,10 +16,12 @@ class CreateOrderTable extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_number')->nullable();
-            $table->string('order_by');
+            $table->string('order_by')->nullable();
             $table->text('order');
             $table->string('total_amount');
             $table->datetime('paid_date')->nullable();
+            $table->string('name')->nullable();
+            $table->string('contact_number')->nullable();
             $table->timestamps();
         });
     }

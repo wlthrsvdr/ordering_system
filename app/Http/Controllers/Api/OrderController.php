@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\RegisteredRfid;
 use App\Models\User;
-use Str, DB;
+use Illuminate\Database\Eloquent\Collection;
+use Str, DB, File;
 
 class OrderController extends Controller
 {
@@ -27,17 +29,43 @@ class OrderController extends Controller
         $this->data['keyword'] = $request->get('keyword');
         $this->data['status'] = $request->get('status');
 
+        // $dirs = File::directories(public_path() . '/assets/contents');
+        // $arr = [];
+
+        // foreach ($dirs as  $value) {
+
+        //     $grade_folder_dir = File::directories($value);
+
+        //     foreach ($grade_folder_dir as  $grade_folder) {
+        //         $grade_folder_files = File::allFiles($grade_folder);
+
+        //         foreach ($grade_folder_files as $files) {
+        //             $file_info = pathinfo($files);
+
+
+        //             $col = collect([
+        //                 'main_folder' => basename($value),
+        //                 'grade_folder' => basename($grade_folder),
+        //                 'filename' => $file_info['basename']
+        //             ]);
+        //             array_push($arr, $col);
+
+        //         }
+        //     }
+        // }
+
+        // $namelist = collect($arr)->groupBy(['main_folder', 'grade_folder']);
+        // $this->response['status'] = TRUE;
+        // $this->response['status_code'] = "FILE_LIST";
+        // $this->response['msg'] = "File informations.";
+        // $this->response['files'] = $namelist;
+        // $this->response_code = 200;
 
         $order = Order::where(function ($query) {
-            if (strlen($this->data['id']) > 0) {
-                return $query->where('order_by', $this->data['id']);
+            if (strlen($this->data['status']) > 0) {
+                return $query->where('status', $this->data['status']);
             }
         })
-            ->where(function ($query) {
-                if (strlen($this->data['status']) > 0) {
-                    return $query->where('status', $this->data['status']);
-                }
-            })
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("LOWER(transaction_number)  LIKE  '{$this->data['keyword']}%'");
@@ -53,6 +81,9 @@ class OrderController extends Controller
         $this->response['data'] = $order;
         $this->response_code = 200;
 
+
+
+
         callback:
         return response()->json($this->response, $this->response_code);
     }
@@ -60,16 +91,16 @@ class OrderController extends Controller
     public function store(Request $request, $format = NULL)
     {
 
-        $user = User::find($request->get('order_by'));
+        // $user = User::find($request->get('order_by'));
 
-        if ($user->account_status == 'inactive') {
-            $this->response['status'] = TRUE;
-            $this->response['status_code'] = "FAILED_ORDER";
-            $this->response['msg'] = "Blocked Account. Please contact administrator";
-            $this->response_code = 401;
+        // if ($user->account_status == 'inactive') {
+        //     $this->response['status'] = TRUE;
+        //     $this->response['status_code'] = "FAILED_ORDER";
+        //     $this->response['msg'] = "Blocked Account. Please contact administrator";
+        //     $this->response_code = 401;
 
-            goto callback;
-        }
+        //     goto callback;
+        // }
 
 
         DB::beginTransaction();
@@ -77,7 +108,9 @@ class OrderController extends Controller
 
             $order = new Order;
 
-            $order->order_by = $request->get('order_by');
+            // $order->order_by = $request->get('order_by');
+            $order->name = $request->get('name');
+            $order->contact_number = $request->get('contact_number');
             $order->order = $request->get('order');
             $order->total_amount = $request->get('total_amount');
             $order->status = 'unpaid';

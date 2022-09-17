@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Topup</a></li>
+                        <li class="breadcrumb-item"><a href="#">Registered RFID</a></li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="card-header">
                 <h3 class="w-50 float-left card-title m-0">Advance Filters </h3>
                 <span class="float-right">
-                    <a href="{{ route('admin.users.student.index') }}" class="btn btn-default btn-sm">[Reset
+                    <a href="{{ route('admin.wallet.index') }}" class="btn btn-default btn-sm">[Reset
                         Filter]</a>
                 </span>
             </div>
@@ -33,17 +33,6 @@
                             <label for="">Keyword <small>(Student Number, Name)</small></label>
                             <input type="text" class="form-control" placeholder="Keyword" name="keyword"
                                 value="{{ $keyword }}">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="">Status</label>
-                            <select class="form-control" aria-label="Default select example" name="status"
-                                value="{{ $status }}">
-                                <option value="">Open this select menu</option>
-                                <option value="active" {{ $status == 'active' ? 'selected' : '' }}>Active
-                                </option>
-                                <option value="inactive" {{ $status == 'inactive' ? 'selected' : '' }}>Inactive
-                                </option>
-                            </select>
                         </div>
                         {{-- <div class="col-md-3">
                             <label for="">Date Range</label>
@@ -72,27 +61,31 @@
                                 {{ session()->get('notification-msg') }}
                             </div>
                         @endif
-
+                        <div class="col-lg-12 col-sm-6">
+                            <span class="btn-group mb-1" style="float: right;">
+                                <a href="{{ route('admin.wallet.create') }}" class="btn btn-md btn-primary mr-2">Register
+                                    Card</a>
+                            </span>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Student Number</th>
+                                        <th>RFID Number</th>
                                         <th>Name</th>
-                                        <th>Email</th>
                                         <th>Balance</th>
-                                        <th>Account Status</th>
+                                        <th>Card Status</th>
                                         <th>Account Created</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($students as $index => $value)
+                                    @forelse($data as $index => $value)
                                         <tr>
                                             <td>
-                                                @if ($value->student_number)
+                                                @if ($value->rfid_number)
                                                     <div class="mb5">
-                                                        {{ $value->student_number }}
+                                                        {{ $value->rfid_number }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
@@ -108,15 +101,6 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->email)
-                                                    <div class="mb5">
-                                                        {{ $value->email }}
-                                                    </div>
-                                                @else
-                                                    <div class="mb5">{{ '-' }}</div>
-                                                @endif
-                                            </td>
-                                            <td>
                                                 @if ($value->e_money)
                                                     <div class="mb5">
                                                         ₱ {{ $value->e_money }}
@@ -126,14 +110,14 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->account_status)
-                                                    @if ($value->account_status == 'active')
+                                                @if ($value->card_status)
+                                                    @if ($value->card_status == 'active')
                                                         <div><span
-                                                                class="badge badge-success">{{ Str::title($value->account_status) }}</span>
+                                                                class="badge badge-success">{{ Str::title($value->card_status) }}</span>
                                                         </div>
                                                     @else
                                                         <div><span
-                                                                class="badge badge-danger">{{ Str::title($value->account_status) }}</span>
+                                                                class="badge badge-danger">{{ Str::title($value->card_status) }}</span>
                                                         </div>
                                                     @endif
                                                 @else
@@ -154,9 +138,9 @@
                                                     class="btn btn-sm btn-primary btn-raised dropdown-toggle"
                                                     data-toggle="dropdown">Actions <span class="caret"></span></button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
-                                                    <a href="{{ route('admin.users.student.update-status', [$value->id]) }}"
+                                                    <a href="{{ route('admin.wallet.update-status', [$value->id]) }}"
                                                         class="dropdown-item" style="cursor: pointer">
-                                                        @if ($value->account_status == 'active')
+                                                        @if ($value->card_status == 'active')
                                                             Deactivate
                                                         @else
                                                             Activate
@@ -167,7 +151,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">
+                                            <td colspan="4">
                                                 <p>No record found yet.</p>
                                             </td>
                                         </tr>
@@ -175,14 +159,14 @@
                                 </tbody>
                             </table>
                         </div>
-                        @if ($students->total() > 0)
+                        @if ($data->total() > 0)
                             <nav class="mt-2">
-                                <p>Showing <strong>{{ $students->firstItem() }}</strong> to
-                                    <strong>{{ $students->lastItem() }}</strong> of
-                                    <strong>{{ $students->total() }}</strong>
+                                <p>Showing <strong>{{ $data->firstItem() }}</strong> to
+                                    <strong>{{ $data->lastItem() }}</strong> of
+                                    <strong>{{ $data->total() }}</strong>
                                     entries
                                 </p>
-                                {!! $students->appends(request()->query())->render() !!}
+                                {!! $data->appends(request()->query())->render() !!}
                                 </ul>
                             </nav>
                         @endif

@@ -131,6 +131,7 @@
                                 </p>
                             </a>
                         </li>
+
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.order.index') }}"
                                 class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
@@ -139,8 +140,8 @@
                                     Orders
                                 </p>
                             </a>
-                        </li> --}}
-                        {{-- <li class="nav-item has-treeview">
+                        </li>
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
@@ -150,16 +151,28 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.wallet.create') }}"
+                                    <a href="{{ route('admin.wallet.topup') }}"
                                         class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                           Add Wallet
+                                            Add Wallet
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.wallet.index') }}"
+                                        class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Registed Users
                                         </p>
                                     </a>
                                 </li>
                             </ul>
                         </li> --}}
+
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.wallet.create') }}"
                                 class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
@@ -194,12 +207,12 @@
                                         <p>Admin</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{ route('admin.users.student.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Students</p>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         {{-- <li class="nav-item has-treeview">

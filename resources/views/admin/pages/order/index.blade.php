@@ -82,7 +82,7 @@
                                         <th>Transaction Number</th>
                                         <th>Orders</th>
                                         <th>Total Amount</th>
-                                        <th>Order By</th>
+                                        {{-- <th>Order By</th> --}}
                                         <th>Status</th>
                                         <th>Order Date</th>
                                         <th>Paid Date</th>
@@ -122,7 +122,7 @@
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($value->orderBy->name)
                                                     <div class="mb5">
                                                         {{ $value->orderBy->name }}
@@ -130,7 +130,7 @@
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if ($value->status)
                                                     @if ($value->status == 'paid')
@@ -183,7 +183,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <p>No record found yet.</p>
                                             </td>
                                         </tr>
