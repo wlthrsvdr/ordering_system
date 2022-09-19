@@ -35,7 +35,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3><i class="fa fa-credit-card"></i>&nbsp; {{ $student_count }}</h3>
-                            <p>Total Registered Card</p>
+                            <p>Total Customers</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-credit-card"></i>
@@ -50,7 +50,7 @@
                         <div class="inner">
                             <h3><i class="fa fa-user"></i> &nbsp; {{ $personnel_count }}</h3>
 
-                            <p>Total Registered Personnel</p>
+                            <p>Total University Cafeteria Staff</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-user"></i>

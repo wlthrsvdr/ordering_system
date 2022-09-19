@@ -49,16 +49,15 @@ class OrderController extends Controller
         //                 'filename' => $file_info['basename']
         //             ]);
         //             array_push($arr, $col);
-
         //         }
         //     }
         // }
 
-        // $namelist = collect($arr)->groupBy(['main_folder', 'grade_folder']);
+        // $namelist = collect($arr)->groupBy(['grade_folder', 'main_folder']);
         // $this->response['status'] = TRUE;
         // $this->response['status_code'] = "FILE_LIST";
         // $this->response['msg'] = "File informations.";
-        // $this->response['files'] = $namelist;
+        // $this->response['files'] = $namelist[$request->get('grade')];
         // $this->response_code = 200;
 
         $order = Order::where(function ($query) {
