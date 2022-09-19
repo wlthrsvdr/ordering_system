@@ -27,10 +27,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 banner-container">
+            <div class="col-lg-6 col-md-6 banner-container d-none d-sm-block">
 
             </div>
-            <div class="col-lg-6 login-container">
+            <div class="col-lg-6 col-md-6 login-container">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col align-self-center">
