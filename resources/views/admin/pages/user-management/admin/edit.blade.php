@@ -94,7 +94,7 @@
                                     value="{{ old('user_role', $admin->user_role) }}">
                                     <option value="">Open this select menu</option>
                                     <option value="personnel" {{ $admin->user_role == 'personnel' ? 'selected' : '' }}>
-                                        Personnel
+                                        Cafeteria Staff
                                     </option>
                                     <option value="admin" {{ $admin->user_role == 'admin' ? 'selected' : '' }}>Admin
                                     </option>

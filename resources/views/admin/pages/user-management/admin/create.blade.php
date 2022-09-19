@@ -93,7 +93,7 @@
                                 <select class="form-control" aria-label="Default select example" name="user_role"
                                     value="{{ old('user_role') }}">
                                     <option value="">Open this select menu</option>
-                                    <option value="personnel">Personnel
+                                    <option value="personnel">Cafeteria Staff
                                     </option>
                                     <option value="admin">Admin
                                     </option>
