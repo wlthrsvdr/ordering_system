@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\{User};
 use DB, Str;
+use Illuminate\Support\Facades\Auth;
 
 class UserManagementController extends Controller
 {
@@ -25,7 +26,7 @@ class UserManagementController extends Controller
         $this->data['keyword'] = Str::lower($request->get('keyword'));
         $this->data['status'] = $request->get('status');
 
-        $this->data['students'] = User::where('user_role', 'student')
+        $this->data['students'] = User::where('user_role', 'customer')
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("firstname LIKE  UPPER('{$this->data['keyword']}%')")
@@ -66,14 +67,14 @@ class UserManagementController extends Controller
         try {
 
             $user = new User;
-            $user->student_number = $request->get('student_number');
+            // $user->student_number = $request->get('student_number');
             $user->firstname = $request->get('firstname');
             $user->middlename = $request->get('middlename');
             $user->lastname = $request->get('lastname');
             $user->suffix = $request->get('suffix');
             $user->email = $request->get('email');
             $user->password = bcrypt($request->get('password'));
-            $user->user_role = 'student';
+            $user->user_role = 'customer';
             $user->account_status = 'active';
             $user->save();
             DB::commit();
@@ -100,7 +101,7 @@ class UserManagementController extends Controller
         $this->data['status'] = $request->get('status');
         $this->data['account_type'] = $request->get('account_type');
 
-        $this->data['admins'] = User::where('user_role', '!=', 'student')
+        $this->data['admins'] = User::where('user_role', '!=', 'customer')
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("firstname LIKE  UPPER('{$this->data['keyword']}%')")
@@ -227,6 +228,59 @@ class UserManagementController extends Controller
 
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Update user status successfully.");
+            return redirect()->back();
+        } catch (\Throwable $e) {
+            DB::rollback();;
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+    }
+
+
+    public function store(Request $request)
+    {
+        $user = Auth::guard('admin')->user();
+
+
+        $if_exists_card = User::where('rfid_number', $request->get('rfid_text'))->first();
+
+        if ($if_exists_card) {
+            $this->data['msg'] = "RFID Number already register.";
+            $this->data['status_code'] = 400;
+        }
+
+        $student = User::find($request->get('userId'));
+
+
+        $student->rfid_number = $request->get('card');
+        $student->save();
+
+        if ($student) {
+
+            $this->data['msg'] = "Register success.";
+            $this->data['status_code'] = 200;
+        } else {
+            $this->data['msg'] = "Payment unsuccessful.";
+            $this->data['status_code'] = 200;
+        }
+
+        return $this->data;
+    }
+
+    public function update_card_status(Request $request, $id)
+    {
+        $user_data  = User::where('id', $id)->first();
+
+        DB::beginTransaction();
+        try {
+
+            $user_data->card_status =   $user_data->card_status ==  'active' ? 'inactive' : 'active';
+            $user_data->save();
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Update card status successfully.");
             return redirect()->back();
         } catch (\Throwable $e) {
             DB::rollback();;

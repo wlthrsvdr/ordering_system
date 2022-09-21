@@ -14,7 +14,7 @@ class UpdateOrderTableAddStatusField extends Migration
     public function up()
     {
         Schema::table('order', function ($table) {
-            $table->string('status')->nullable()->after('total_amount');
+            $table->string('payment_status')->nullable()->after('total_amount');
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateOrderTableAddStatusField extends Migration
     public function down()
     {
         Schema::table('order', function ($table) {
-            $table->dropColumn(['status']);
+            $table->dropColumn(['payment_status']);
         });
     }
 }

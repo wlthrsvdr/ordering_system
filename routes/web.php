@@ -51,9 +51,12 @@ Route::group(
 
 
             Route::group(['prefix' => 'users', 'as' => "users."], function () {
-                Route::group(['prefix' => 'student', 'as' => "student."], function () {
+                Route::group(['prefix' => 'customer', 'as' => "customer."], function () {
                     Route::any('/', ['as' => "index", 'uses' => "UserManagementController@students"]);
                     Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "UserManagementController@update_status"]);
+
+                    Route::any('add-wallet', ['as' => "add-wallet", 'uses' => "UserManagementController@store"]);
+                    Route::get('update-card-status/{id?}', ['as' => "update-card-status", 'uses' => "UserManagementController@update_card_status"]);
                 });
                 Route::group(['prefix' => 'admin', 'as' => "admin."], function () {
                     Route::any('/', ['as' => "index", 'uses' => "UserManagementController@admins"]);

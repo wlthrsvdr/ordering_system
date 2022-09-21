@@ -89,8 +89,8 @@ class AuthController extends Controller
         $email_validation = User::where('email', $request->get('email'))
             ->where('user_role', 'student')->first();
 
-        $student_num_validation = User::where('student_number', $request->get('student_number'))
-            ->where('user_role', 'student')->first();
+        // $student_num_validation = User::where('student_number', $request->get('student_number'))
+        //     ->where('user_role', 'student')->first();
 
 
         if ($request->get('password') != $request->get('confirm_password')) {
@@ -110,26 +110,27 @@ class AuthController extends Controller
         }
 
 
-        if (!empty($student_num_validation)) {
-            $this->response['status'] = FALSE;
-            $this->response['status_code'] = "REGISTRATION_FAILED";
-            $this->response['msg'] = "Student Number Already Exists";
-            $this->response_code = 401;
-            goto callback;
-        }
+        // if (!empty($student_num_validation)) {
+        //     $this->response['status'] = FALSE;
+        //     $this->response['status_code'] = "REGISTRATION_FAILED";
+        //     $this->response['msg'] = "Student Number Already Exists";
+        //     $this->response_code = 401;
+        //     goto callback;
+        // }
 
 
         try {
             DB::beginTransaction();
             $user = new User;
-            $user->student_number = $request->get('student_number');
+            // $user->student_number = $request->get('student_number');
+            $user->contact_number = $request->get('contact_number');
             $user->firstname = $request->get('firstname');
             $user->middlename = $request->get('middlename');
             $user->lastname = $request->get('lastname');
             $user->suffix = $request->get('suffix');
             $user->email = $request->get('email');
             $user->password = bcrypt($request->get('password'));
-            $user->user_role = 'student';
+            $user->user_role = 'customer';
             $user->account_status = 'active';
             $user->save();
 
@@ -201,14 +202,14 @@ class AuthController extends Controller
     public function update(Request $request)
     {
         $email_validation = User::where('email', $request->get('email'))
-            ->where('user_role', 'student')
+            ->where('user_role', 'customer')
             ->where('id', '!=', $request->get('userId'))
             ->first();
 
-        $student_num_validation = User::where('student_number', $request->get('student_number'))
-            ->where('user_role', 'student')
-            ->where('id', '!=', $request->get('userId'))
-            ->first();
+        // $student_num_validation = User::where('student_number', $request->get('student_number'))
+        //     ->where('user_role', 'student')
+        //     ->where('id', '!=', $request->get('userId'))
+        //     ->first();
 
 
         if ($request->get('password') != $request->get('confirm_password')) {
@@ -228,26 +229,27 @@ class AuthController extends Controller
         }
 
 
-        if (!empty($student_num_validation)) {
-            $this->response['status'] = FALSE;
-            $this->response['status_code'] = "UPDATE_FAILED";
-            $this->response['msg'] = "Student Number Already Exists";
-            $this->response_code = 401;
-            goto callback;
-        }
+        // if (!empty($student_num_validation)) {
+        //     $this->response['status'] = FALSE;
+        //     $this->response['status_code'] = "UPDATE_FAILED";
+        //     $this->response['msg'] = "Student Number Already Exists";
+        //     $this->response_code = 401;
+        //     goto callback;
+        // }
 
 
         try {
             DB::beginTransaction();
             $user = User::find($request->get('userId'));
-            $user->student_number = $request->get('student_number');
+            $user->contact_number = $request->get('contact_number');
+            // $user->student_number = $request->get('student_number');
             $user->firstname = $request->get('firstname');
             $user->middlename = $request->get('middlename');
             $user->lastname = $request->get('lastname');
             $user->suffix = $request->get('suffix');
             $user->email = $request->get('email');
             $user->password = bcrypt($request->get('password'));
-            $user->user_role = 'student';
+            $user->user_role = 'customer';
             $user->account_status = 'active';
             $user->save();
 
@@ -268,4 +270,5 @@ class AuthController extends Controller
         callback:
         return response()->json($this->response, $this->response_code);
     }
+
 }

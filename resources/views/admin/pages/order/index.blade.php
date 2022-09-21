@@ -82,10 +82,11 @@
                                         <th>Transaction Number</th>
                                         <th>Orders</th>
                                         <th>Total Amount</th>
-                                        {{-- <th>Order By</th> --}}
-                                        <th>Status</th>
+                                        <th>Order By</th>
+                                        <th>Payment Status</th>
+                                        <th>Order Status</th>
                                         <th>Order Date</th>
-                                        <th>Paid By</th>
+                                        {{-- <th>Paid By</th> --}}
                                         <th>Paid Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -124,18 +125,27 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->status)
-                                                    @if ($value->status == 'paid')
+                                                @if ($value->orderBy)
+                                                    <div class="mb5">
+                                                        {{ $value->orderBy->name }}
+                                                    </div>
+                                                @else
+                                                    <div class="mb5">{{ '-' }}</div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($value->payment_status)
+                                                    @if ($value->payment_status == 'paid')
                                                         <div><span
-                                                                class="badge badge-success">{{ Str::title($value->status) }}</span>
+                                                                class="badge badge-success">{{ Str::title($value->payment_status) }}</span>
                                                         </div>
-                                                    @elseif($value->status == 'pending')
+                                                    @elseif($value->payment_status == 'pending')
                                                         <div><span
-                                                                class="badge badge-warning">{{ Str::title($value->status) }}</span>
+                                                                class="badge badge-warning">{{ Str::title($value->payment_status) }}</span>
                                                         </div>
                                                     @else
                                                         <div><span
-                                                                class="badge badge-danger">{{ Str::title($value->status) }}</span>
+                                                                class="badge badge-danger">{{ Str::title($value->payment_status) }}</span>
                                                         </div>
                                                     @endif
                                                 @else
@@ -143,18 +153,18 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->created_at)
+                                                @if ($value->order_status)
                                                     <div class="mb5">
-                                                        {{ $value->created_at->format(''m-d-y') }}
+                                                        {{ $value->order_status }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->paidBy)
+                                                @if ($value->created_at)
                                                     <div class="mb5">
-                                                        {{ $value->paidBy->name }}
+                                                        {{ $value->created_at->format('m-d-y') }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
@@ -163,7 +173,7 @@
                                             <td>
                                                 @if ($value->paid_date)
                                                     <div class="mb5">
-                                                        {{ $value->paid_date->format(''m-d-y') }}
+                                                        {{ $value->paid_date->format('m-d-y') }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>

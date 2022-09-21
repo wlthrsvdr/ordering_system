@@ -90,16 +90,16 @@ class OrderController extends Controller
     public function store(Request $request, $format = NULL)
     {
 
-        // $user = User::find($request->get('order_by'));
+        $user = User::find($request->get('order_by'));
 
-        // if ($user->account_status == 'inactive') {
-        //     $this->response['status'] = TRUE;
-        //     $this->response['status_code'] = "FAILED_ORDER";
-        //     $this->response['msg'] = "Blocked Account. Please contact administrator";
-        //     $this->response_code = 401;
+        if ($user->account_status == 'inactive') {
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "FAILED_ORDER";
+            $this->response['msg'] = "Blocked Account. Please contact administrator";
+            $this->response_code = 401;
 
-        //     goto callback;
-        // }
+            goto callback;
+        }
 
 
         DB::beginTransaction();
@@ -107,12 +107,12 @@ class OrderController extends Controller
 
             $order = new Order;
 
-            // $order->order_by = $request->get('order_by');
-            $order->name = $request->get('name');
-            $order->contact_number = $request->get('contact_number');
+            $order->order_by = $request->get('order_by');
+            // $order->name = $request->get('name');
+            // $order->contact_number = $request->get('contact_number');
             $order->order = $request->get('order');
             $order->total_amount = $request->get('total_amount');
-            $order->status = 'unpaid';
+            $order->payment_status = 'unpaid';
             $order->save();
 
             $order->transaction_number = 'PLSP' . $this->codeGenerate() . $order->id;

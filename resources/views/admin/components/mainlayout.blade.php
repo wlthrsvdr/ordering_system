@@ -131,8 +131,8 @@
                                 </p>
                             </a>
                         </li>
-                        
-                        {{-- <li class="nav-item has-treeview">
+
+                        <li class="nav-item has-treeview">
                             <a href="{{ route('admin.order.index') }}"
                                 class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-shopping-cart"></i>
@@ -141,7 +141,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
+                        {{-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
@@ -159,19 +159,19 @@
                                         </p>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
+                            </ul> --}}
+                        {{-- <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.wallet.index') }}"
                                         class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Registed Users
+                                            Card Registration
                                         </p>
                                     </a>
                                 </li>
-                            </ul>
-                        </li> --}}
+                            </ul> --}}
+                        {{-- </li> --}}
 
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.wallet.create') }}"
@@ -207,12 +207,12 @@
                                         <p>Admin</p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{ route('admin.users.student.index') }}" class="nav-link">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.customer.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Students</p>
+                                        <p>Customer</p>
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </li>
                         {{-- <li class="nav-item has-treeview">

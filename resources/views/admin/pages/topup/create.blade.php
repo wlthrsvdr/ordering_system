@@ -40,60 +40,9 @@
                             <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="80%">
                         </div>
 
-                        <div class="info-container" id="info_contianer" style="display: none">
-                            <form action="" method="POST" enctype=multipart/form-data>
-                                {!! csrf_field() !!}
-                                <input type="hidden" id="rfid_info_text" name="rfid_text">
-                                <input type="hidden" id="userId" name="userId">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label for="input_firstname"><b>Firstname</b></label>
-                                        <input type="text" class="form-control" id="input_firstname" placeholder=""
-                                            value="{{ old('firstname') }}" name="firstname">
-                                        @if ($errors->first('firstname'))
-                                            <p class="form-text text-danger">{{ $errors->first('firstname') }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input_middlename"><b>Middlename</b></label>
-                                        <input type="text" class="form-control" id="input_middlename" placeholder=""
-                                            value="{{ old('middlename') }}" name="middlename">
-                                        @if ($errors->first('middlename'))
-                                            <p class="form-text text-danger">{{ $errors->first('middlename') }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input_lastname"><b>Lastname</b></label>
-                                        <input type="text" class="form-control" id="input_lastname" placeholder=""
-                                            value="{{ old('lastname') }}" name="lastname">
-                                        @if ($errors->first('lastname'))
-                                            <p class="form-text text-danger">{{ $errors->first('lastname') }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input_contact_number"><b>Contact Number</b></label>
-                                        <input type="text" class="form-control" id="input_contact_number" placeholder=""
-                                            value="{{ old('contact_number') }}" name="contact_number">
-                                        @if ($errors->first('contact_number'))
-                                            <p class="form-text text-danger">{{ $errors->first('contact_number') }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="input_amount"><b>Amount</b></label>
-                                        <input type="text" class="form-control" id="input_amount" placeholder=""
-                                            value="{{ old('amount') }}" name="amount">
-                                        @if ($errors->first('amount'))
-                                            <p class="form-text text-danger">{{ $errors->first('amount') }}</p>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <a href="{{ route('admin.wallet.create') }}" class="btn btn-secondary">Go back</a>
-                                        <button type="submit" class="btn  btn-primary">Submit</button>
-                                    </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     @endsection

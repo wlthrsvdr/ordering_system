@@ -14,7 +14,7 @@ class UpdateUserTableAddRfidField extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('rfid')->nullable()->after('account_status');
+            $table->string('rfid_number')->nullable()->after('account_status');
         });
     }
 

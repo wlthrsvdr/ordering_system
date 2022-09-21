@@ -30,20 +30,10 @@
                 <div class="card-body">
                     <div class="row row-xs mb-4">
                         <div class="col-md-3">
-                            <label for="">Keyword <small>(Student Number, Name)</small></label>
+                            <label for="">Keyword <small>(Name)</small></label>
                             <input type="text" class="form-control" placeholder="Keyword" name="keyword"
                                 value="{{ $keyword }}">
                         </div>
-                        {{-- <div class="col-md-3">
-                            <label for="">Date Range</label>
-                            <input type="text" class="form-control datepicker" placeholder="Start Date" name="start_date"
-                                value="{{ $start_date }}">
-                        </div>
-                        <div class="col-md-3 mt-3 mt-md-0">
-                            <label for="">&nbsp;</label>
-                            <input type="text" class="form-control datepicker" placeholder="End Date" name="end_date"
-                                value="{{ $end_date }}">
-                        </div> --}}
                     </div>
                     <div class="col-md-2 mt-3 mt-md-0">
                         <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
@@ -71,9 +61,8 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>RFID Number</th>
                                         <th>Name</th>
-                                        <th>Balance</th>
+                                        <th>Contact Number</th>
                                         <th>Card Status</th>
                                         <th>Account Created</th>
                                         <th>Action</th>
@@ -82,15 +71,6 @@
                                 <tbody>
                                     @forelse($data as $index => $value)
                                         <tr>
-                                            <td>
-                                                @if ($value->rfid_number)
-                                                    <div class="mb5">
-                                                        {{ $value->rfid_number }}
-                                                    </div>
-                                                @else
-                                                    <div class="mb5">{{ '-' }}</div>
-                                                @endif
-                                            </td>
                                             <td>
                                                 @if ($value->name)
                                                     <div class="mb5">
@@ -101,24 +81,28 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->e_money)
+                                                @if ($value->contact_number)
                                                     <div class="mb5">
-                                                        ₱ {{ $value->e_money }}
+                                                        {{ $value->contact_number }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($value->card_status)
-                                                    @if ($value->card_status == 'active')
-                                                        <div><span
-                                                                class="badge badge-success">{{ Str::title($value->card_status) }}</span>
-                                                        </div>
+                                                @if ($value->rfid_number)
+                                                    @if ($value->card_status)
+                                                        @if ($value->card_status == 'active')
+                                                            <div><span
+                                                                    class="badge badge-success">{{ Str::title($value->card_status) }}</span>
+                                                            </div>
+                                                        @else
+                                                            <div><span
+                                                                    class="badge badge-danger">{{ Str::title($value->card_status) }}</span>
+                                                            </div>
+                                                        @endif
                                                     @else
-                                                        <div><span
-                                                                class="badge badge-danger">{{ Str::title($value->card_status) }}</span>
-                                                        </div>
+                                                        <div class="mb5">{{ '-' }}</div>
                                                     @endif
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>

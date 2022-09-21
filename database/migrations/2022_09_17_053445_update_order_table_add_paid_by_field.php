@@ -14,7 +14,7 @@ class UpdateOrderTableAddPaidByField extends Migration
     public function up()
     {
         Schema::table('order', function ($table) {
-            $table->string('paid_by')->nullable()->after('status');
+            $table->string('paid_by')->nullable()->after('payment_status');
         });
     }
 
