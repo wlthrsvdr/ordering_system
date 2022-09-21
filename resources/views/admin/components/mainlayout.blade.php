@@ -132,7 +132,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item has-treeview">
+                        {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.order.index') }}"
                                 class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
                                 <i class="nav-icon fa fa-shopping-cart"></i>
@@ -140,7 +140,7 @@
                                     Orders
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-money"></i>
