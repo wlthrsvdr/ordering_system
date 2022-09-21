@@ -31,20 +31,20 @@ class MainController extends Controller
         $this->data['admin_count'] = User::all()->where('user_role', 'admin')->count();
         $this->data['personnel_count'] = User::all()->where('user_role', 'personnel')->count();
 
-        $this->data['unpaid_order'] = Order::where('status', 'unpaid')->count();
-        $this->data['paid_order'] = Order::where('status', 'paid')->count();
+        $this->data['unpaid_order'] = Order::where('payment_status', 'unpaid')->count();
+        $this->data['paid_order'] = Order::where('payment_status', 'paid')->count();
         $this->data['total_order'] = Order::get()->count();
 
-        $this->data['montly_sales'] = Order::where('status', 'paid')
+        $this->data['montly_sales'] = Order::where('payment_status', 'paid')
             ->where(DB::raw("DATE(created_at)"), '>=', $this->data['start_month'])
             ->where(DB::raw("DATE(created_at)"), '<=', $this->data['end_month'])
-            ->groupBy('status')
+            ->groupBy('payment_status')
             ->sum('total_amount');
 
-        $this->data['daily_sales'] = Order::where('status', 'paid')
+        $this->data['daily_sales'] = Order::where('payment_status', 'paid')
             ->where(DB::raw("DATE(created_at)"), '>=', $this->data['today_date'])
             ->where(DB::raw("DATE(created_at)"), '<=', $this->data['today_date'])
-            ->groupBy('status')
+            ->groupBy('payment_status')
             ->sum('total_amount');
 
 
