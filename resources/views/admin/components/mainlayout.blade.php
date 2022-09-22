@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PLSP Ordering System </title>
+    <title>PLSP University Cafeteria Ordering System </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -83,7 +83,7 @@
 
             <a href="index3.html" class="brand-link">
                 <span class="brand-text font-weight-light">
-                    <h5 align="center"><strong>PLSP Ordering <br> System</strong></h5>
+                    <h5 align="center"><strong>PLSP University Cafeteria <br> Ordering System</strong></h5>
                 </span>
             </a>
 
