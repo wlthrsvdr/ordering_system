@@ -30,7 +30,7 @@ class AuthController extends Controller
 
 
 
-        if (Auth::guard($this->guard)->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 'student'])) {
+        if (Auth::guard($this->guard)->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 'customer'])) {
 
             $user =  auth($this->guard)->user();
             $user_data =  User::where('id',   $user->id)->get();
@@ -270,5 +270,4 @@ class AuthController extends Controller
         callback:
         return response()->json($this->response, $this->response_code);
     }
-
 }
