@@ -190,22 +190,12 @@ class WalletController extends Controller
         }
     }
 
-    public function get_info(Request $request, $id = '')
+    public function get_info(Request $request)
     {
-        // $user = User::find(1);
 
-        // $user = User::where('rfid', $id)->first();
-
-        $user = User::where('rfid_number', $id)->first();
+        $user = User::where('rfid_number', $request->get('rfidText'))->first();
 
         return $user;
-        // if ($user) {
-        //     return $user;
-        // } else {
-        //     session()->flash('notification-status', "failed");
-        //     session()->flash('notification-msg', "Invalid Rfid");
-        //     // return redirect()->back();
-        // }
     }
 
     public function update_status(Request $request, $id)

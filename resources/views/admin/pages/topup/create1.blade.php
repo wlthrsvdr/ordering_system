@@ -36,25 +36,18 @@
 
                         <div id="back_tap_container" class="tap-container">
                             <h3>Please tap your rfid card</h3>
-                            <input type="text" id="back_rfid_text">
+                            <input type="text" id="wallet_rfid_text" style="z-index: -1 !important;position: absolute;">
                             <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="80%">
                         </div>
 
                         <div class="info-container" id="back_info_contianer" style="display: none">
                             <form action="" method="POST" enctype=multipart/form-data>
                                 {!! csrf_field() !!}
-                                <input type="hidden" id="back_rfid_info_text" name="rfid_text">
-                                <input type="hidden" id="back_userId" name="userId">
+                                <input type="text" id="wallet_rfid_info_text" name="rfid_text"
+                                    style="z-index: -1 !important;position: absolute;">
+                                <input type="text" id="back_userId" name="userId"
+                                    style="z-index: -1 !important;position: absolute;">
                                 <div class="form-group">
-                                    {{-- <div class="form-group">
-                                        <label for="input_student_num"><b>Student Number/Visitor Number</b></label>
-                                        <input type="text" class="form-control" id="back_input_student_num"
-                                            placeholder="" value="{{ old('student_number') }}" name="student_number"
-                                            readonly>
-                                        @if ($errors->first('student_number'))
-                                            <p class="form-text text-danger">{{ $errors->first('student_number') }}</p>
-                                        @endif
-                                    </div> --}}
                                     <div class="form-group">
                                         <label for="input_firstname"><b>Firstname</b></label>
                                         <input type="text" class="form-control" id="back_input_firstname" placeholder=""
@@ -88,22 +81,7 @@
                                             <p class="form-text text-danger">{{ $errors->first('contact_number') }}</p>
                                         @endif
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label for="input_account_tpe"><b>Account Type</b></label>
-                                        <input type="text" class="form-control" id="input_account_tpe" placeholder=""
-                                            value="{{ old('account_type') }}" name="account_type" readonly>
-                                        @if ($errors->first('account_type'))
-                                            <p class="form-text text-danger">{{ $errors->first('account_type') }}</p>
-                                        @endif
-                                    </div> --}}
-                                    <div class="form-group">
-                                        <label for="input_balance"><b>Current Balance</b></label>
-                                        <input type="text" class="form-control" id="back_input_balance" placeholder=""
-                                            value="{{ old('balance') }}" name="balance" readonly>
-                                        @if ($errors->first('balance'))
-                                            <p class="form-text text-danger">{{ $errors->first('balance') }}</p>
-                                        @endif
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="input_amount"><b>Amount</b></label>
                                         <input type="text" class="form-control" id="back_input_amount" placeholder=""

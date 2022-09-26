@@ -1,35 +1,36 @@
 $(document).ready(function () {
+    var orderId = 0;
 
-
-});
-
-
-// function getData(orderId) {
-//     console.log(orderId);
-// }
-
-$('#pay-card-button').on('click', function () {
-
-    var orderId = $(this).attr("order-id")
-
-    $('#confirm-pay-via-card').modal('show');
-
-    $('#rfid_text').focus();
+    $('#order_rfid_text').focus();
     $('body').mousemove(function () {
-        $('#rfid_text').focus();
+        $('#order_rfid_text').focus();
 
 
     });
 
+    $('#pay-card-button').on('click', function () {
+
+        orderId = $(this).attr("order-id")
+
+        $('#confirm-pay-via-card').modal('show');
+        $('#order_rfid_text').focus();
+
+    });
+
+    $('#confirm-pay-via-card').on('shown.bs.modal', function () {
+
+        $('#order_rfid_text').focus();
+
+
+    });
 
     (function update() {
-        $('#rfid_text').keyup(function () {
-            if ($(this).val().length > 0) {
-                var rfidText = $(this).val();
+        $('#order_rfid_text').on('keyup', delay(function (e) {
+            if ($(this).val().length >= 10) {
+                // $('#order_rfid_text').trigger("keyup");
+                // var rfidText = $(this).val();
+                var rfidText = document.getElementById("order_rfid_text").value;
                 var AlertMsg = $('div[role="alert"]');
-                var textVal = $(this).val();
-
-                console.log('lenght', textVal.length);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -44,21 +45,25 @@ $('#pay-card-button').on('click', function () {
                     success: function (res) {
                         if (res.status_code === 401) {
                             ShowAlert('', res.msg, 'danger');
-                            $('#rfid_text').val('');
+                            $('#order_rfid_text').val('');
+                            $('#order_rfid_text').blur();
                             setTimeout(function () {
                                 $(AlertMsg).hide();
+                                location.reload(true);
                             }, 2000);
                         } else {
                             ShowAlert('', res.msg, "success");
-                            $('#rfid_text').val('');
+                            console.log("asd")
+                            $('#order_rfid_text').val('');
+                            $('#order_rfid_text').blur();
                             setTimeout(function () {
                                 $(AlertMsg).hide();
-                                location.reload();
+                                location.reload(true);
                             }, 2000);
                         }
                     },
                     error: function (err) {
-                        $('#rfid_text').val('');
+                        $('#order_rfid_text').val('');
                         ShowAlert('', 'Rfid number not found', 'danger');
 
 
@@ -67,12 +72,19 @@ $('#pay-card-button').on('click', function () {
 
             }
 
-        }).then(function () {
-            setTimeout(update, 3000);
-        });
+        }, 500));
     })();
-
 });
+
+
+function delay(fn, ms) {
+    let timer = 0
+    return function (...args) {
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), ms || 0)
+    }
+}
+
 
 function ShowAlert(msg_title, msg_body, msg_type) {
     var AlertMsg = $('div[role="alert"]');

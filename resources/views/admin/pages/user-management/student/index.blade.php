@@ -125,9 +125,17 @@
                                             <td>
                                                 @if ($value->rfid_number)
                                                     @if ($value->card_status)
-                                                        <div><span
-                                                                class="badge badge-success">{{ Str::title($value->card_status) }}</span>
-                                                        </div>
+                                                        @if ($value->card_status === 'active')
+                                                            <div>
+                                                                <span
+                                                                    class="badge badge-success">{{ Str::title($value->card_status) }}</span>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <span
+                                                                    class="badge badge-danger">{{ Str::title($value->card_status) }}</span>
+                                                            </div>
+                                                        @endif
                                                     @else
                                                         <div class="mb5">{{ '-' }}</div>
                                                     @endif
@@ -158,21 +166,23 @@
                                                             Activate Account
                                                         @endif
                                                     </a>
-                                                    {{-- @if ($value->rfid_number == '')
+                                                    @if ($value->rfid_number == '')
                                                         <button user-id="{{ $value->id }}"
                                                             id="pay-card-button"class="dropdown-item"
                                                             style="cursor: pointer">
                                                             Register Card
                                                         </button>
                                                     @endif
-                                                    <a href="{{ route('admin.users.customer.update-card-status', [$value->id]) }}"
-                                                        class="dropdown-item" style="cursor: pointer">
-                                                        @if ($value->account_status == 'active')
-                                                            Deactivate Card
-                                                        @else
-                                                            Activate Card
-                                                        @endif
-                                                    </a> --}}
+                                                    @if ($value->rfid_number != '')
+                                                        <a href="{{ route('admin.users.customer.update-card-status', [$value->id]) }}"
+                                                            class="dropdown-item" style="cursor: pointer">
+                                                            @if ($value->card_status == 'active')
+                                                                Deactivate Card
+                                                            @else
+                                                                Activate Card
+                                                            @endif
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -220,7 +230,7 @@
                     </div>
                     <div id="tap_container" class="tap-container">
                         <h3 class="text-semibold">Please tap your rfid card</h3>
-                        <input type="text" id="rfid_text">
+                        <input type="text" id="rfid_text" style="z-index: -1 !important;position: absolute;">
                         <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="100%">
                     </div>
 

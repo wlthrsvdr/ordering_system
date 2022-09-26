@@ -183,13 +183,13 @@
                                                 <button type="button"
                                                     class="btn btn-sm btn-primary btn-raised dropdown-toggle"
                                                     data-toggle="dropdown">Actions <span class="caret"></span></button>
-                                                @if ($value->status != 'paid')
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
-                                                        <button class="dropdown-item" order-id="{{ $value->id }}"
-                                                            id="pay-card-button">Pay via
-                                                            card</button>
-                                                    </div>
-                                                @endif
+                                                {{-- @if ($value->payment_status != 'paid') --}}
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
+                                                    <button class="dropdown-item" order-id="{{ $value->id }}"
+                                                        id="pay-card-button">Pay via
+                                                        card</button>
+                                                </div>
+                                                {{-- @endif --}}
                                             </td>
                                         </tr>
                                     @empty
@@ -235,7 +235,8 @@
                         </div>
                         <div id="tap_container" class="tap-container">
                             <h3 class="text-semibold">Please tap your rfid card</h3>
-                            <input type="text" id="rfid_text">
+                            <input type="text" id="order_rfid_text" name="rfid_text"
+                                style="z-index: -1 !important;position: absolute;">
                             <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="100%">
                         </div>
 

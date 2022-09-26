@@ -51,7 +51,7 @@
                             <select class="form-control" aria-label="Default select example" name="account_type"
                                 value="{{ $status }}">
                                 <option value="">Open this select menu</option>
-                                <option value="personnel" {{ $status == 'personnel' ? 'selected' : '' }}>Personnel
+                                <option value="personnel" {{ $status == 'personnel' ? 'selected' : '' }}>Cafeteria Staff
                                 </option>
                                 <option value="admin" {{ $status == 'admin' ? 'selected' : '' }}>Admin
                                 </option>
@@ -127,9 +127,15 @@
                                             </td>
                                             <td>
                                                 @if ($value->user_role)
-                                                    <div class="mb5">
-                                                        {{ $value->user_role }}
-                                                    </div>
+                                                    @if ($value->user_role == 'personnel')
+                                                        <div class="mb5">
+                                                            {{ 'Cafeteria Staff' }}
+                                                        </div>
+                                                    @else
+                                                        <div class="mb5">
+                                                            {{ 'Admin' }}
+                                                        </div>
+                                                    @endif
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
                                                 @endif

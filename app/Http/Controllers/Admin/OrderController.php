@@ -55,7 +55,7 @@ class OrderController extends Controller
     public function rfid_pay(Request $request)
     {
 
-        $check_balance = RegisteredRfid::where('rfid_number', $request->get('card'))->first();
+        $check_balance = User::where('rfid_number', $request->get('card'))->first();
         $order_info = Order::find($request->get('orderId'));
 
         if ($check_balance->card_status == 'inactive') {
@@ -73,10 +73,11 @@ class OrderController extends Controller
                 $this->data['msg'] = "Insufficient Balance. Please reload first";
                 $this->data['status_code'] = 401;
             } else {
-                $check_balance->e_money = $check_balance->e_money -  $order_info->total_amount;
+                $check_balance->e_money = (int)$check_balance->e_money -  (int)$order_info->total_amount;
                 $check_balance->save();
 
-                $order_info->status = "paid";
+                $order_info->payment_status = "paid";
+                $order_info->order_status = "completed";
                 $order_info->paid_by =  $check_balance->id;
                 $order_info->save();
 

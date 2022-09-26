@@ -1,81 +1,38 @@
 $(document).ready(function () {
-    var text = "123456";
-    var firstname = "waltz";
     $('#info_contianer').hide();
 
-    $('#rfid_text').focus();
-    $('body').mousemove(function () {
-        $('#rfid_text').focus();
+    $('#wallet_rfid_text').focus();
+    $('#wallet_rfid_info_text').focus();
 
+    $('body').mousemove(function () {
+        $('#wallet_rfid_text').focus();
+        $('#wallet_rfid_info_text').focus();
 
     });
-
-    // (function update()
-    $('#rfid_text').keyup(function () {
-        if ($(this).val() != '') {
-            var rfidText = $(this).val();
-            $('#rfid_info_text').val($(this).val());
+});
 
 
-            $('#tap_container').hide();
-            $('#info_contianer').show();
+(function update() {
+    $('#wallet_rfid_text').on('keyup', delay(function (e) {
+        if ($(this).val() >= 10) {
+            // var rfidText = $(this).val();
+            // $('#wallet_rfid_info_text').val($(this).val());
+
+            var rfidText = document.getElementById("wallet_rfid_text").value;
+            $('#wallet_rfid_info_text').val(document.getElementById("wallet_rfid_text").value);
+            var AlertMsg = $('div[role="alert"]');
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: "GET",
-                url: "create",
-                data: "data",
+                url: "get-info",
+                data: {
+                    rfidText: rfidText
+                },
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
-                    var AlertMsg = $('div[role="alert"]');
-
-                    // $('#tap_container').hide();
-                    // $('#info_contianer').show();
-
-
-                    $(AlertMsg).hide();
-                },
-                error: function (err) {
-                    $('#rfid_info_text').val('');
-                    $('#rfid_text').val('');
-                    ShowAlert('error', 'Rfid number not found', 'danger');
-
-                    // // location.reload(true)
-                }
-            });
-
-        }
-
-    })
-    // .then(function () {
-    //     setTimeout(update, 3000);
-    // });
-    // })();
-
-
-
-
-    $('#back_rfid_text').keyup(function () {
-        if ($(this).val() != '') {
-            var rfidText = $(this).val();
-            $('#back_rfid_info_text').val($(this).val());
-
-
-            $('#back_tap_container').hide();
-            $('#back_info_contianer').show();
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: "GET",
-                url: "get-info/" + rfidText,
-                data: "data",
-                dataType: "json",
-                success: function (res) {
-                    console.log(res);
-                    var AlertMsg = $('div[role="alert"]');
 
                     $('#back_tap_container').hide();
                     $('#back_info_contianer').show();
@@ -90,8 +47,8 @@ $(document).ready(function () {
                     $(AlertMsg).hide();
                 },
                 error: function (err) {
-                    $('#rfid_info_text').val('');
-                    $('#rfid_text').val('');
+                    $('#wallet_rfid_text').val('');
+                    $('#wallet_rfid_info_text').val('');
                     ShowAlert('error', 'Rfid number not found', 'danger');
                     // console.log(err, "error");
                     // // location.reload(true)
@@ -99,10 +56,8 @@ $(document).ready(function () {
             });
 
         }
-
-    })
-
-});
+    }, 500));
+})();
 
 function ShowAlert(msg_title, msg_body, msg_type) {
     var AlertMsg = $('div[role="alert"]');
@@ -112,4 +67,13 @@ function ShowAlert(msg_title, msg_body, msg_type) {
     $(AlertMsg).addClass('alert alert-' + msg_type);
     $(AlertMsg).show();
 }
+
+function delay(fn, ms) {
+    let timer = 0
+    return function (...args) {
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), ms || 0)
+    }
+}
+
 

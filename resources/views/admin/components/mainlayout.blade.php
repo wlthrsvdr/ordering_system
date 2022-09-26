@@ -81,7 +81,7 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a href="index3.html" class="brand-link">
+            <a href="{{ route('admin.dashboard') }}" class="brand-link">
                 <span class="brand-text font-weight-light">
                     <h5 align="center"><strong>PLSP University Cafeteria <br> Ordering System</strong></h5>
                 </span>
@@ -90,12 +90,19 @@
 
             <div class="sidebar">
 
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex text-center">
                     <div class="image">
                         <img src={{ asset('assets/imgs/logo.png') }} class="img-circle elevation-2" alt="User Image">
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Administrator</a>
+                    <div class="info text-center">
+                        <a href="#" class="d-block" style="white-space:normal;">
+                            @if (Auth::guard('admin')->user()->user_role === 'personnel')
+                                {{ 'University Cafeteria Staff' }}
+                            @else
+                                {{ 'Administrator' }}
+                            @endif
+                        </a>
+                        <span class="d-block" style="color:#c2c7d0;">{{ Auth::guard('admin')->user()->name }}</span>
                     </div>
                 </div>
 
@@ -113,25 +120,26 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.products.index') }}"
-                                class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fa fa-cutlery"></i>
-                                <p>
-                                    Products
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.categories.index') }}"
-                                class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fa fa-tag"></i>
-                                <p>
-                                    Categories
-                                </p>
-                            </a>
-                        </li>
-
+                        @if (Auth::guard('admin')->user()->user_role === 'admin')
+                            <li class="nav-item has-treeview">
+                                <a href="{{ route('admin.products.index') }}"
+                                    class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <p>
+                                        Products
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="{{ route('admin.categories.index') }}"
+                                    class="{{ request()->is('admin/topup') ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fa fa-tag"></i>
+                                    <p>
+                                        Categories
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.order.index') }}"
                                 class="{{ request()->is('admin/order') ? 'nav-link active' : 'nav-link' }}">
@@ -140,8 +148,8 @@
                                     Orders
                                 </p>
                             </a>
-                        </li> --}}
-                        {{-- <li class="nav-item has-treeview">
+                        </li>
+                        <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-money"></i>
                                 <p>
@@ -159,7 +167,9 @@
                                         </p>
                                     </a>
                                 </li>
-                            </ul> --}}
+                            </ul>
+                        </li> --}}
+                        
                         {{-- <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.wallet.index') }}"
@@ -182,6 +192,8 @@
                                 </p>
                             </a>
                         </li> --}}
+
+                        {{-- @if (Auth::guard('admin')->user()->user_role === 'admin') --}}
                         {{-- <li class="nav-item has-treeview">
                             <a href="{{ route('admin.report.index') }}"
                                 class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
@@ -191,6 +203,7 @@
                                 </p>
                             </a>
                         </li> --}}
+                        {{-- @endif --}}
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
@@ -200,13 +213,15 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.users.admin.index') }}"
-                                        class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Admin</p>
-                                    </a>
-                                </li>
+                                @if (Auth::guard('admin')->user()->user_role === 'admin')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.users.admin.index') }}"
+                                            class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Admin</p>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a href="{{ route('admin.users.customer.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -308,9 +323,8 @@
     <script type="text/javascript" src="/assets/dist/js/pages/dashboard.js"></script>
 
     <script type="text/javascript" src="/assets/js/{{ $js }}.js"></script>
-    {{-- <script type="text/javascript" src="/assets/js/Topup.js"></script>
 
-    <script type="text/javascript" src="/assets/js/Order.js"></script> --}}
+    <script type="text/javascript" src="/assets/js/Global.js"></script>
 
     <script type="text/javascript" src="/assets/dist/js/demo.js"></script>
 

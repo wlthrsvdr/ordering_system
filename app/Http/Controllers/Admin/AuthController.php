@@ -27,7 +27,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
 
-        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'user_role' => 'admin'])) {
+        if (Auth::guard('admin')->attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
             session()->flash('notification-status', "success");
             session()->flash('notification-msg', "Welcome back!");
 
@@ -35,8 +35,7 @@ class AuthController extends Controller
                 return redirect(session()->get($redirect_uri));
             }
 
-            if (Auth::guard('admin')->user()->user_role == 'admin') {
-
+            if (Auth::guard('admin')->user()->user_role != 'customer') {
                 if (Auth::guard('admin')->user()->account_status  == 'inactive') {
                     Auth::guard('admin')->logout(true);
                     session()->flash('notification-status', "failed");

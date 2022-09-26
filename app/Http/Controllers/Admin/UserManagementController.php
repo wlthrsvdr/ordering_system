@@ -7,6 +7,8 @@ use App\Models\{User};
 use DB, Str;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\callback;
+
 class UserManagementController extends Controller
 {
 
@@ -243,28 +245,31 @@ class UserManagementController extends Controller
         $user = Auth::guard('admin')->user();
 
 
-        $if_exists_card = User::where('rfid_number', $request->get('rfid_text'))->first();
+        $if_exists_card = User::where('rfid_number', $request->get('rfidText'))->first();
 
         if ($if_exists_card) {
             $this->data['msg'] = "RFID Number already register.";
-            $this->data['status_code'] = 400;
+            $this->data['status_code'] = 401;
+            goto callback;
         }
 
         $student = User::find($request->get('userId'));
 
 
-        $student->rfid_number = $request->get('card');
+        $student->rfid_number = $request->get('rfidText');
+        $student->card_status = 'active';
         $student->save();
 
         if ($student) {
-
             $this->data['msg'] = "Register success.";
             $this->data['status_code'] = 200;
+            $this->data['data'] = $student;
         } else {
-            $this->data['msg'] = "Payment unsuccessful.";
-            $this->data['status_code'] = 200;
+            $this->data['msg'] = "Register unsuccessful.";
+            $this->data['status_code'] = 401;
         }
 
+        callback:
         return $this->data;
     }
 
