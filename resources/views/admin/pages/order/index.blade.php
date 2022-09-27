@@ -188,6 +188,14 @@
                                                     <button class="dropdown-item" order-id="{{ $value->id }}"
                                                         id="pay-card-button">Pay via
                                                         card</button>
+                                                    <a href="{{ route('admin.order.update-status', [$value->id]) }}"
+                                                        class="dropdown-item" style="cursor: pointer">
+                                                        @if ($value->order_status === 'pending')
+                                                            update to preparing
+                                                        @elseif($value->order_status === 'preparing')
+                                                            update to prepared
+                                                        @endif
+                                                    </a>
                                                 </div>
                                                 {{-- @endif --}}
                                             </td>

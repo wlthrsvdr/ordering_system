@@ -51,6 +51,43 @@ class OrderController extends Controller
         return view('admin.pages.order.index', $this->data);
     }
 
+    public function update_order_status(Request $request, $id)
+    {
+        $status = '';
+
+        DB::beginTransaction();
+        try {
+            $order = Order::where('id', $id)->first();
+
+            switch ($order->order_status) {
+                case 'pending':
+                    $status = 'preparing';
+                    break;
+                case 'preparing':
+                    $status = 'prepared';
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+
+            $order->order_status = $status;
+            $order->save();
+
+            DB::commit();
+
+            session()->flash('notification-status', "success");
+            session()->flash('notification-msg', "Update order status successfully.");
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            session()->flash('notification-status', "failed");
+            session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
+            return redirect()->back();
+        }
+    }
+
+
 
     public function rfid_pay(Request $request)
     {

@@ -114,6 +114,7 @@ Route::group(
                 Route::any('/', ['as' => "index", 'uses' => "OrderController@index"]);
 
                 Route::any('pay-via-card', ['as' => "pay-via-card", 'uses' => "OrderController@rfid_pay"]);
+                Route::get('update-status/{id?}', ['as' => "update-status", 'uses' => "OrderController@update_order_status"]);
             });
 
             Route::group(['prefix' => 'report', 'as' => "report."], function () {
