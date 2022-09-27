@@ -19,7 +19,7 @@ class CreateOrderTable extends Migration
             $table->string('order_by')->nullable();
             $table->text('order');
             $table->string('total_amount');
-            $table->string('order_status')->nullable()->default('preparing');
+            $table->string('order_status')->nullable()->default('pending');
             $table->datetime('paid_date')->nullable();
             // $table->string('name')->nullable();
             // $table->string('contact_number')->nullable();

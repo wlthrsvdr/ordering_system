@@ -27,7 +27,8 @@ class OrderController extends Controller
     {
         $this->data['id'] = $request->get('id');
         $this->data['keyword'] = $request->get('keyword');
-        $this->data['status'] = $request->get('status');
+        $this->data['order_status'] = $request->get('order_status');
+        $this->data['payment_status'] = $request->get('payment_status');
 
         // $dirs = File::directories(public_path() . '/assets/contents');
         // $arr = [];
@@ -61,10 +62,20 @@ class OrderController extends Controller
         // $this->response_code = 200;
 
         $order = Order::where(function ($query) {
-            if (strlen($this->data['status']) > 0) {
-                return $query->where('status', $this->data['status']);
+            if (strlen($this->data['payment_status']) > 0) {
+                return $query->where('payment_status', $this->data['payment_status']);
             }
         })
+            ->where(function ($query) {
+                if ($this->data['id']) {
+                    return $query->where('id', $this->data['id']);
+                }
+            })
+            ->where(function ($query) {
+                if (strlen($this->data['order_status']) > 0) {
+                    return $query->where('order_status', $this->data['order_status']);
+                }
+            })
             ->where(function ($query) {
                 if (strlen($this->data['keyword']) > 0) {
                     return $query->whereRaw("LOWER(transaction_number)  LIKE  '{$this->data['keyword']}%'");
@@ -112,6 +123,7 @@ class OrderController extends Controller
             // $order->contact_number = $request->get('contact_number');
             $order->order = $request->get('order');
             $order->total_amount = $request->get('total_amount');
+            $order->order_status = 'pending';
             $order->payment_status = 'unpaid';
             $order->save();
 
