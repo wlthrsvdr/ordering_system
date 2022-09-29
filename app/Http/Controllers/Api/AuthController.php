@@ -93,6 +93,7 @@ class AuthController extends Controller
         //     ->where('user_role', 'student')->first();
 
 
+
         if ($request->get('password') != $request->get('confirm_password')) {
             $this->response['status'] = FALSE;
             $this->response['status_code'] = "REGISTRATION_FAILED";
@@ -122,6 +123,7 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
             $user = new User;
+            $host =  $request->getSchemeAndHttpHost();
             // $user->student_number = $request->get('student_number');
             $user->contact_number = $request->get('contact_number');
             $user->firstname = $request->get('firstname');
@@ -132,6 +134,16 @@ class AuthController extends Controller
             $user->password = bcrypt($request->get('password'));
             $user->user_role = 'customer';
             $user->account_status = 'active';
+
+
+            if ($request->file('profile')) {
+                $image = $request->file('profile');
+                $fileName = time() . '_' . $image->getClientOriginalName();
+                $destinationPath = public_path('uploads/customer-profile');
+                $file = $image->move($destinationPath, $fileName);;
+                $user->profile = $host . '/uploads/customer-profile/' . $fileName;
+            }
+
             $user->save();
 
             DB::commit();
