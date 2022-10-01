@@ -158,7 +158,7 @@
                                             <td>
                                                 @if ($value->created_at)
                                                     <div class="mb5">
-                                                        {{ $value->created_at->format('m-d-y') }}
+                                                        {{ $value->created_at->format('m-d-Y') }}
                                                     </div>
                                                 @else
                                                     <div class="mb5">{{ '-' }}</div>
