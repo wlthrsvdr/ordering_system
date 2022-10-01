@@ -47,10 +47,8 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Go back to
-                                    Category
-                                    List</a>
-                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary mt-2">Go back</a>
+                                <button type="submit" class="btn  btn-primary mt-2">Submit</button>
                             </div>
                 </form>
             </div>

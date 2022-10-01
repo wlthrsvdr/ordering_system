@@ -72,13 +72,11 @@
                                         value="{{ old('image') }}">
                                     <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                                 </div>
-                                <img id="output" />
+                                <img id="output" class="responsive" />
                             </div>
                             <div class="form-group">
-                                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Go back to
-                                    Product
-                                    List</a>
-                                <button type="submit" class="btn  btn-primary">Submit</button>
+                                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary mt-2">Go back</a>
+                                <button type="submit" class="btn  btn-primary mt-2">Submit</button>
                             </div>
                 </form>
             </div>
