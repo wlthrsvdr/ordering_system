@@ -36,7 +36,7 @@
                                 value="{{ $keyword }}">
                         </div>
                         <div class="col-md-3">
-                            <label for="">Status</label>
+                            <label for="">Account Status</label>
                             <select class="form-control" aria-label="Default select example" name="status"
                                 value="{{ $status }}">
                                 <option value="">Open this select menu</option>
