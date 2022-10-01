@@ -44,7 +44,7 @@ class ProductController extends Controller
             ->orderBy('created_at', "DESC")
             ->get();
 
-            // dd($product);
+        // dd($product);
 
         $this->response['status'] = TRUE;
         $this->response['status_code'] = "PRODUCT_LIST";

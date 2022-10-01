@@ -166,7 +166,7 @@
                                                             Activate Account
                                                         @endif
                                                     </a>
-                                                    @if ($value->rfid_number == '')
+                                                    {{-- @if ($value->rfid_number == '')
                                                         <button user-id="{{ $value->id }}"
                                                             id="pay-card-button"class="dropdown-item"
                                                             style="cursor: pointer">
@@ -182,7 +182,7 @@
                                                                 Activate Card
                                                             @endif
                                                         </a>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
                                             </td>
                                         </tr>
