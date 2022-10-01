@@ -92,7 +92,7 @@
 
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex text-center">
                     <div class="image">
-                        <img src={{ asset('assets/imgs/logo.png') }} class="img-circle elevation-2" alt="User Image">
+                        <img src={{ asset('assets/imgs/plsp.jpg') }} class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info text-center">
                         <a href="#" class="d-block" style="white-space:normal;">
