@@ -36,6 +36,10 @@ Route::group(
         Route::post('login/{redirect_uri?}', ['as' => "authenticate", 'uses' => "AuthController@authenticate"]);
         Route::any('logout', ['as' => "logout", 'uses' => "AuthController@logout"]);
 
+        Route::group(['prefix' => 'download', 'as' => "download."], function () {
+            Route::any('apk', ['as' => "apk", 'uses' => "MainController@download_apk"]);
+        });
+
 
         Route::group(['middleware' => ["system.auth:admin"]], function () {
 
@@ -43,6 +47,7 @@ Route::group(
 
             Route::get('users', ['as' => "users", 'uses' => "UserManagementController@users"]);
             Route::post('users', ['uses' => "UserManagementController@store"]);
+
 
             // Route::get('get_user/{id}', ['uses' => "UserManagementController@get_user"]);
             // Route::post('update_user', ['uses' => "UserManagementController@update"]);

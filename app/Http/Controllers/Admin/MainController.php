@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\{Order, RegisteredRfid, User};
 
-use Carbon\Carbon, DB;
+use Carbon\Carbon, DB, Illuminate\Support\Facades\Response;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class MainController extends Controller
 {
@@ -49,5 +50,11 @@ class MainController extends Controller
 
 
         return view('admin.pages.dashboard', $this->data);
+    }
+
+    public function download_apk(Request $request)
+    {
+        $filepath = public_path('assets/downloads/PLSP_FOOD_APP.apk');
+        return Response::download($filepath);
     }
 }
