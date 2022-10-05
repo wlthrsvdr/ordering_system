@@ -169,7 +169,7 @@
                                 </li>
                             </ul>
                         </li> --}}
-                        
+
                         {{-- <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.wallet.index') }}"
@@ -230,15 +230,15 @@
                                 </li>
                             </ul>
                         </li>
-                        {{-- <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.users') }}"
-                                class="{{ request()->is('admin/users') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fas fa-users"></i>
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('admin.application.index') }}"
+                                class="{{ request()->is('admin/application') ? 'nav-link active' : 'nav-link' }}">
+                                <i class="nav-icon fa fa-android"></i>
                                 <p>
-                                    User Management
+                                    Application
                                 </p>
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </nav>
 

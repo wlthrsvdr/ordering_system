@@ -41,7 +41,7 @@ class ProductController extends Controller
             ->orderBy('created_at', "DESC")
             ->paginate($this->per_page);
 
-
+        dd($this->data['products']);
         return view('admin.pages.products.index', $this->data);
     }
 

@@ -36,11 +36,6 @@ Route::group(
         Route::post('login/{redirect_uri?}', ['as' => "authenticate", 'uses' => "AuthController@authenticate"]);
         Route::any('logout', ['as' => "logout", 'uses' => "AuthController@logout"]);
 
-        Route::group(['prefix' => 'download', 'as' => "download."], function () {
-            Route::any('apk', ['as' => "apk", 'uses' => "MainController@download_apk"]);
-        });
-
-
         Route::group(['middleware' => ["system.auth:admin"]], function () {
 
             Route::any('/', ['as' => "dashboard", 'uses' => "MainController@index"]);
@@ -52,7 +47,21 @@ Route::group(
             // Route::get('get_user/{id}', ['uses' => "UserManagementController@get_user"]);
             // Route::post('update_user', ['uses' => "UserManagementController@update"]);
             // Route::post('approved_user/{id}', ['uses' => "UserManagementController@approvedUser"]);
-            // Route::post('block_user/{id}', ['uses' => "UserManagementController@blockedUser"]);
+            // Route::post('block_user/{id}', ['uses' => "UserManagementController@blockedUser"])
+
+            Route::group(['prefix' => 'application', 'as' => "application."], function () {
+                Route::any('/', ['as' => "index", 'uses' => "ApplicationController@index"]);
+
+
+                Route::get('create', ['as' => "create", 'uses' => "ApplicationController@create"]);
+                Route::post('create', ['uses' => "ApplicationController@store"]);
+
+                Route::any('delete-apk/{filename?}', ['as' => "delete-apk", 'uses' => "ApplicationController@remove_apk"]);
+
+                Route::group(['prefix' => 'download', 'as' => "download."], function () {
+                    Route::any('apk', ['as' => "apk", 'uses' => "ApplicationController@download_apk"]);
+                });
+            });
 
 
             Route::group(['prefix' => 'users', 'as' => "users."], function () {
