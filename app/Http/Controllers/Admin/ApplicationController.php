@@ -30,6 +30,7 @@ class ApplicationController extends Controller
 
         $dirs = File::allFiles(public_path() . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
+        dd(public_path());
 
         $arr = [];
 
@@ -106,7 +107,6 @@ class ApplicationController extends Controller
     {
         $dirs = File::allFiles(public_path() . '/assets/downloads');
 
-        dd(public_path());
         // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) == 0) {
