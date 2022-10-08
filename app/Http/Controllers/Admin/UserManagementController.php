@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\{User};
+use App\Models\{Topup, User};
 use DB, Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -261,6 +261,19 @@ class UserManagementController extends Controller
         $student->save();
 
         if ($student) {
+            $topup = new Topup;
+
+            $topup->transaction_type = 2;
+            $topup->topup_by = $user->id;
+            $topup->topup_by = 50;
+            $topup->status = 'completed';
+            $topup->save();
+
+            $topup->transaction_number = 'PLSP' . $this->codeGenerate() . $topup->id;
+            $topup->save();
+        }
+
+        if ($student) {
             $this->data['msg'] = "Register success.";
             $this->data['status_code'] = 200;
             $this->data['data'] = $student;
@@ -293,5 +306,14 @@ class UserManagementController extends Controller
             session()->flash('notification-msg', "Server Errorss: Code #{$e->getMessage()}");
             return redirect()->back();
         }
+    }
+
+    function codeGenerate()
+    {
+        $randCode  = (string)mt_rand(1000, 9999);
+        $randChar  = rand(65, 90);
+        $randInx   = rand(0, 3);
+        $randCode[$randInx] = chr($randChar);
+        return $randCode;
     }
 }

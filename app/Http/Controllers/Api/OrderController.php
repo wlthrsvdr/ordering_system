@@ -113,7 +113,7 @@ class OrderController extends Controller
     public function store(Request $request, $format = NULL)
     {
 
-        $user = User::find($request->get('order_by'));
+        $user = User::where('id', $request->get('order_by'))->first();
 
         $this->data['date']  = Carbon::now()->format("Y-m-d");
 
@@ -198,7 +198,6 @@ class OrderController extends Controller
         $this->response['status'] = TRUE;
         $this->response['status_code'] = "SUCCESS";
         $this->response['msg'] = "Success.";
-        // $this->response['data'] = $order;
         $this->response_code = 200;
 
         callback:

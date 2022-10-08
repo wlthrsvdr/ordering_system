@@ -162,6 +162,7 @@ class WalletController extends Controller
             $customer->save();
 
             if ($customer) {
+                $topup->transaction_type = 1;
                 $topup->topup_by = $user->id;
                 $topup->topup_to = $request->get('userId');
                 $topup->amount = $request->get('amount');
