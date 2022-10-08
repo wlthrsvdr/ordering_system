@@ -27,10 +27,10 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-
+        dd(public_path());
         $dirs = File::allFiles(public_path() . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
-        dd(public_path());
+ 
 
         $arr = [];
 
