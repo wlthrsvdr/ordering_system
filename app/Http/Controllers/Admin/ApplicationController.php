@@ -27,10 +27,10 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        dd(public_path());
-        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        // dd(base_path() . '/public');
+        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
- 
+
 
         $arr = [];
 
@@ -57,7 +57,7 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) > 0) {
@@ -105,7 +105,7 @@ class ApplicationController extends Controller
 
     public function download_apk(Request $request)
     {
-        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
 
         // $dirs = File::allFiles('public/assets/downloads');
 
