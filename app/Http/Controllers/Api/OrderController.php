@@ -129,7 +129,7 @@ class OrderController extends Controller
         $order_data = Order::where('order_status', '!=', 'completed')
             ->where(DB::raw("DATE(created_at)"), '>=', $this->data['date'])
             ->where(DB::raw("DATE(created_at)"), '<=', $this->data['date'])
-            ->orderBy('created_at', "ASC")
+            ->orderBy('created_at', "DESC")
             ->first();
 
 
