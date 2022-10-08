@@ -54,8 +54,8 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        $dirs = File::allFiles(public_path() . '/assets/downloads');
-
+        // $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) > 0) {
             session()->flash('notification-status', "error");
