@@ -27,7 +27,9 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        dd(base_path() . '/public' . '/assets/downloads');
+
+        $host =  $request->getSchemeAndHttpHost();
+        dd($host . '/public' . '/assets/downloads');
         $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
 
