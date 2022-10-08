@@ -129,7 +129,7 @@ class OrderController extends Controller
 
             $order->order_by = $request->get('order_by');
             $order->order_number = $order_data ? $order_data->order_number + 1 : 1;
-            $order->order = $request->get('order');
+            $order->order = json_decode($request->get('order'));
             $order->total_amount = $request->get('total_amount');
             $order->order_status = 'pending';
             $order->payment_status = 'unpaid';
