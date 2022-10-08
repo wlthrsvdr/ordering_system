@@ -29,6 +29,8 @@ class ApplicationController extends Controller
     {
 
         $dirs = File::allFiles(public_path() . '/assets/downloads');
+        // $dirs = File::allFiles('public/assets/downloads');
+
         $arr = [];
 
         foreach ($dirs as  $file) {
@@ -54,8 +56,8 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        // $dirs = File::allFiles(public_path() . '/assets/downloads');
-        $dirs = File::allFiles('public/assets/downloads');
+        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) > 0) {
             session()->flash('notification-status', "error");
@@ -102,9 +104,9 @@ class ApplicationController extends Controller
 
     public function download_apk(Request $request)
     {
-        // $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = File::allFiles(public_path() . '/assets/downloads');
 
-        $dirs = File::allFiles('public/assets/downloads');
+        // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) == 0) {
             return abort(404);
