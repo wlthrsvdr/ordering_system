@@ -106,14 +106,14 @@ class OrderController extends Controller
 
         $this->data['date']  = Carbon::now()->format("Y-m-d");
 
-        if ($user->account_status == 'inactive') {
-            $this->response['status'] = TRUE;
-            $this->response['status_code'] = "FAILED_ORDER";
-            $this->response['msg'] = "Blocked Account. Please contact administrator";
-            $this->response_code = 401;
+        // if ($user->account_status == 'inactive') {
+        //     $this->response['status'] = TRUE;
+        //     $this->response['status_code'] = "FAILED_ORDER";
+        //     $this->response['msg'] = "Blocked Account. Please contact administrator";
+        //     $this->response_code = 401;
 
-            goto callback;
-        }
+        //     goto callback;
+        // }
 
         $order_data = Order::where('order_status', '!=', 'completed')
             ->where(DB::raw("DATE(created_at)"), '>=', $this->data['date'])
