@@ -30,7 +30,7 @@ class ApplicationController extends Controller
         // dd(base_path() . '/public');
         $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
-
+        dd(base_path() . '/public' . '/assets/downloads');
 
         $arr = [];
 
