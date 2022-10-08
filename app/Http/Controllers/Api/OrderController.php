@@ -27,6 +27,7 @@ class OrderController extends Controller
     public function show(Request $request)
     {
         $this->data['id'] = $request->get('id');
+        $this->data['order_by'] = $request->get('order_by');
         $this->data['keyword'] = $request->get('keyword');
         $this->data['order_status'] = $request->get('order_status');
         $this->data['payment_status'] = $request->get('payment_status');
@@ -67,6 +68,16 @@ class OrderController extends Controller
                 return $query->where('payment_status', $this->data['payment_status']);
             }
         })
+            ->where(function ($query) {
+                if ($this->data['id']) {
+                    return $query->where('id', $this->data['id']);
+                }
+            })
+            ->where(function ($query) {
+                if ($this->data['order_by']) {
+                    return $query->where('order_by', $this->data['order_by']);
+                }
+            })
             ->where(function ($query) {
                 if ($this->data['id']) {
                     return $query->where('id', $this->data['id']);
