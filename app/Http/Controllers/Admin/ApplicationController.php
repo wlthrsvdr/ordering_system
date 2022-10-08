@@ -29,8 +29,10 @@ class ApplicationController extends Controller
     {
 
         $host =  $request->getSchemeAndHttpHost();
+        $samp = public_path('downloads');
+        // dd($samp);
         // dd($host . '/public' . '/assets/downloads');
-        $dirs = File::allFiles($host . '/public' . '/assets/downloads');
+        $dirs = File::allFiles($samp);
         // $dirs = File::allFiles('public/assets/downloads');
 
 
