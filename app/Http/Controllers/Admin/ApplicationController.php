@@ -29,8 +29,8 @@ class ApplicationController extends Controller
     {
 
         $host =  $request->getSchemeAndHttpHost();
-        dd($host . '/public' . '/assets/downloads');
-        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
+        // dd($host . '/public' . '/assets/downloads');
+        $dirs = File::allFiles($host . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
 
 
@@ -59,7 +59,11 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
+        $host =  $request->getSchemeAndHttpHost();
+        // dd($host . '/public' . '/assets/downloads');
+        $dirs = File::allFiles($host . '/public' . '/assets/downloads');
+
+        // $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
         // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) > 0) {
@@ -107,7 +111,11 @@ class ApplicationController extends Controller
 
     public function download_apk(Request $request)
     {
-        $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
+        $host =  $request->getSchemeAndHttpHost();
+        // dd($host . '/public' . '/assets/downloads');
+        $dirs = File::allFiles($host . '/public' . '/assets/downloads');
+
+        // $dirs = File::allFiles(base_path() . '/public' . '/assets/downloads');
 
         // $dirs = File::allFiles('public/assets/downloads');
 
