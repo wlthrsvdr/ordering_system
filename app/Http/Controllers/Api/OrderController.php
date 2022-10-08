@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\RegisteredRfid;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Str, DB, File;
 
@@ -103,6 +104,8 @@ class OrderController extends Controller
 
         $user = User::find($request->get('order_by'));
 
+        $this->data['date']  = Carbon::now()->format("Y-m-d");
+
         if ($user->account_status == 'inactive') {
             $this->response['status'] = TRUE;
             $this->response['status_code'] = "FAILED_ORDER";
@@ -112,6 +115,12 @@ class OrderController extends Controller
             goto callback;
         }
 
+        $order_data = Order::where('order_status', '!=', 'completed')
+            ->where(DB::raw("DATE(created_at)"), '>=', $this->data['date'])
+            ->where(DB::raw("DATE(created_at)"), '<=', $this->data['date'])
+            ->orderBy('created_at', "ASC")
+            ->first();
+
 
         DB::beginTransaction();
         try {
@@ -119,8 +128,7 @@ class OrderController extends Controller
             $order = new Order;
 
             $order->order_by = $request->get('order_by');
-            // $order->name = $request->get('name');
-            // $order->contact_number = $request->get('contact_number');
+            $order->order_number = $order_data ? $order_data->order_number + 1 : 1;
             $order->order = $request->get('order');
             $order->total_amount = $request->get('total_amount');
             $order->order_status = 'pending';

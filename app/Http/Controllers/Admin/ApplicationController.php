@@ -105,7 +105,7 @@ class ApplicationController extends Controller
         $dirs = File::allFiles(public_path() . '/assets/downloads');
 
         if (count($dirs) == 0) {
-            return abort(404);s
+            return abort(404);
         } else {
             return Response::download($dirs[0]);
         }
