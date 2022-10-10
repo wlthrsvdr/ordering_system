@@ -10,6 +10,7 @@ use  Illuminate\Support\Facades\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationController extends Controller
 {
@@ -29,10 +30,11 @@ class ApplicationController extends Controller
     {
 
         // $dirs = File::allFiles(public_path() . '/assets/downloads');
-        $dirs = File::allFiles(public_path('uploads/downloads'));
+        // $dirs = File::allFiles(public_path('uploads/downloads'));
+        $dirs = Storage::allFiles('storage/app/public/apk');
+        // dd($dirs);
 
         $arr = [];
-
         foreach ($dirs as  $file) {
             // dd($file->getPathInfo());
             array_push($arr, [
@@ -56,7 +58,7 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = Storage::allFiles('storage/app/public/apk');
         // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) > 0) {
@@ -68,8 +70,20 @@ class ApplicationController extends Controller
             if ($request->file('apk')) {
                 $apk = $request->file('apk');
                 $fileName =  $apk->getClientOriginalName();
-                $destinationPath = public_path('assets/downloads');
-                $file = $apk->move($destinationPath, $fileName);
+                // $path = $request->file('apk')->store(
+                //     'apk',
+                //     'public',
+                //     'Installer'
+                // );
+
+                $path = $request->file('apk')->storeAs(
+                    'apk',
+                    'Installer.apk',
+                    'public'
+                );
+
+                // $destinationPath = public_path('assets/downloads');
+                // $file = $apk->move($destinationPath, $fileName);
             }
 
             session()->flash('notification-status', "success");
