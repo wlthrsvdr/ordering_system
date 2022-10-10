@@ -17,7 +17,7 @@ $app = new Illuminate\Foundation\Application(
 );
 
 $app->bind('path.public', function () {
-    return __DIR__;
+    return base_path() . '/public';
 });
 
 /*
