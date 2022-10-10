@@ -54,6 +54,8 @@ class ApplicationController extends Controller
 
     public function create(Request $request)
     {
+        ini_set('upload_max_filesize ', '100M');
+        ini_set('post_max_size ', '100M');
         $this->data['auth'] = $request->user();
         return view('admin.pages.application.create', $this->data);
     }
