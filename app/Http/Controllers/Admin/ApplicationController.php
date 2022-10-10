@@ -24,6 +24,7 @@ class ApplicationController extends Controller
         $this->data['js'] = "Application";
         $this->middleware('system.guest', ['except' => "logout"]);
         ini_set('upload_max_filesize ', '100M');
+        ini_set('post_max_size ', '100M');
     }
 
 
