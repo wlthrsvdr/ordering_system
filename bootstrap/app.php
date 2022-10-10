@@ -12,8 +12,8 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    // $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
-    $this->basePath . '/public'
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+    // $this->basePath . '/public'
 );
 
 $app->bind('path.public', function () {
