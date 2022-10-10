@@ -16,8 +16,8 @@ $app = new Illuminate\Foundation\Application(
     // $this->basePath . '/public'
 );
 
-$app->bind('path.public', function () {
-    return base_path() . '/public';
+$this->app->bind('path.public', function () {
+    return base_path() . DIRECTORY_SEPARATOR . 'public';
 });
 
 /*
