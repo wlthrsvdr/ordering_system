@@ -16,7 +16,7 @@ $app = new Illuminate\Foundation\Application(
 );
 
 $app->bind('path.public', function () {
-    return realpath(__DIR__ . '/../public');
+    return __DIR__;
 });
 
 /*
