@@ -23,8 +23,8 @@ class ApplicationController extends Controller
     {
         $this->data['js'] = "Application";
         $this->middleware('system.guest', ['except' => "logout"]);
-        ini_set('upload_max_filesize ', '100M');
-        ini_set('post_max_size ', '100M');
+        ini_set('post_max_size', '64M');
+        ini_set('upload_max_filesize', '64M');;
     }
 
 
@@ -33,15 +33,15 @@ class ApplicationController extends Controller
 
         // $dirs = File::allFiles(public_path() . '/assets/downloads');
         // $dirs = File::allFiles(public_path('uploads/downloads'));
-        $dirs = Storage::allFiles('storage/app/public/apk');
-        // dd($dirs);
+        $apks = storage_path('app/public/apk/');
+        $dirs = File::files($apks);
 
         $arr = [];
         foreach ($dirs as  $file) {
             // dd($file->getPathInfo());
             array_push($arr, [
                 'filename' => $file->getBasename(),
-                'filesize' => $file->getSize(),
+                'filesize' => $this->convertSize($file->getSize()),
                 'date' => Carbon::parse($file->getCTime())->format('m/d/y'),
                 'path' => $file->getPathname()
             ]);
@@ -54,8 +54,8 @@ class ApplicationController extends Controller
 
     public function create(Request $request)
     {
-        ini_set('upload_max_filesize ', '100M');
-        ini_set('post_max_size ', '100M');
+        ini_set('post_max_size', '64M');
+        ini_set('upload_max_filesize', '64M');
         $this->data['auth'] = $request->user();
         return view('admin.pages.application.create', $this->data);
     }
@@ -132,4 +132,15 @@ class ApplicationController extends Controller
             return Response::download($dirs[0]);
         }
     }
+
+    public static function convertSize($bytes)
+{
+    $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+
+    for ($i = 0; $bytes > 1024; $i++) {
+        $bytes /= 1024;
+    }
+
+    return round($bytes, 2) . ' ' . $units[$i];
+}
 }
