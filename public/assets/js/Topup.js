@@ -4,11 +4,11 @@ $(document).ready(function () {
     $('#wallet_rfid_text').focus();
     $('#wallet_rfid_info_text').focus();
 
-    $('body').mousemove(function () {
-        $('#wallet_rfid_text').focus();
-        $('#wallet_rfid_info_text').focus();
+    // $('body').mousemove(function () {
+    //     $('#wallet_rfid_text').focus();
+    //     $('#wallet_rfid_info_text').focus();
 
-    });
+    // });
 });
 
 
@@ -36,6 +36,8 @@ $(document).ready(function () {
 
                     $('#back_tap_container').hide();
                     $('#back_info_contianer').show();
+                    $('#wallet_rfid_text').blur();
+                    $('#wallet_rfid_text').focus();
 
                     $('#back_userId').val(res.id);
                     $('#back_input_firstname').val(res.firstname);

@@ -36,7 +36,8 @@
 
                         <div id="back_tap_container" class="tap-container">
                             <h3>Please tap your rfid card</h3>
-                            <input type="text" id="wallet_rfid_text" style="z-index: -1 !important;position: absolute;">
+                            <input type="text" id="wallet_rfid_text" style="z-index: -1 !important;position: absolute;"
+                                autocomplete="off">
                             <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="80%">
                         </div>
 
@@ -44,7 +45,7 @@
                             <form action="" method="POST" enctype=multipart/form-data>
                                 {!! csrf_field() !!}
                                 <input type="text" id="wallet_rfid_info_text" name="rfid_text"
-                                    style="z-index: -1 !important;position: absolute;">
+                                    style="z-index: -1 !important;position: absolute;" autocomplete="off">
                                 <input type="text" id="back_userId" name="userId"
                                     style="z-index: -1 !important;position: absolute;">
                                 <div class="form-group">

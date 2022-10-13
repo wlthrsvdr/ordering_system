@@ -87,7 +87,12 @@ class OrderController extends Controller
             })
             ->where(function ($query) {
                 if (strlen($this->data['order_status']) > 0) {
-                    return $query->where('order_status', $this->data['order_status']);
+
+                    if ($this->data['order_status'] === 1) {
+                        return $query->where('order_status', '!=', 'completed');
+                    } else if ($this->data['order_status'] === 2) {
+                        return $query->where('order_status', 'completed');
+                    }
                 }
             })
             ->where(function ($query) {

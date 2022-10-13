@@ -38,6 +38,8 @@ class Product extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => "datetime:m-d-Y",
+        'updated_at' => "datetime:m-d-Y"
     ];
 
     public function category()

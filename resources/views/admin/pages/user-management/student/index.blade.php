@@ -166,12 +166,13 @@
                                                             Activate Account
                                                         @endif
                                                     </a>
-                                                    {{-- @if ($value->rfid_number == '')
-                                                        <button user-id="{{ $value->id }}"
-                                                            id="pay-card-button"class="dropdown-item"
+                                                    {{-- id="pay-card-button" --}}
+                                                    {{-- user-id="{{ $value->id }}" --}}
+                                                    @if ($value->rfid_number == '')
+                                                        <a onclick="showModal({{ $value->id }})" class="dropdown-item"
                                                             style="cursor: pointer">
                                                             Register Card
-                                                        </button>
+                                                        </a>
                                                     @endif
                                                     @if ($value->rfid_number != '')
                                                         <a href="{{ route('admin.users.customer.update-card-status', [$value->id]) }}"
@@ -182,7 +183,7 @@
                                                                 Activate Card
                                                             @endif
                                                         </a>
-                                                    @endif --}}
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -216,7 +217,7 @@
     </div>
 
 
-    <div id="confirm-reg-card" class="modal fade">
+    <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -230,7 +231,7 @@
                     </div>
                     <div id="tap_container" class="tap-container">
                         <h3 class="text-semibold">Please tap your rfid card</h3>
-                        <input type="text" id="rfid_text" style="z-index: -1 !important;position: absolute;">
+                        <input type="text" id="rfid_text" style="z-index: -1 !important;position: absolute;" autocomplete="off">
                         <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="100%">
                     </div>
 
@@ -239,8 +240,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    {{-- <button type="submit" class="btn  btn-primary">Pay</button> --}}
-                    {{-- <a href="#" class="btn btn-sm btn-danger" id="btn-confirm-pay-via-card">Pay</a> --}}
                 </div>
             </div>
         </div>

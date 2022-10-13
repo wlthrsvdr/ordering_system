@@ -28,6 +28,8 @@ class Topup extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+        'created_at' => "datetime:m-d-Y",
+        'updated_at' => "datetime:m-d-Y"
     ];
 
 

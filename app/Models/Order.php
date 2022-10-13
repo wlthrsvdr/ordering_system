@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Str;
+use Carbon\Carbon;
 
 class Order extends Authenticatable
 {
@@ -39,7 +40,10 @@ class Order extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'order' => 'array',
+        'created_at' => "datetime:m-d-Y",
+        'updated_at' => "datetime:m-d-Y"
     ];
+
 
     public function orderBy()
     {
