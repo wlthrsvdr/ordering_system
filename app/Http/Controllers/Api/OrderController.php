@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\RegisteredRfid;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Format;
 use Str, DB, File;
 
 class OrderController extends Controller
@@ -218,5 +220,174 @@ class OrderController extends Controller
         $randInx   = rand(0, 3);
         $randCode[$randInx] = chr($randChar);
         return $randCode;
+    }
+
+    public function addToCart(Request $request, $format = NULL)
+    {
+        $user = User::where('id', $request->get('order_by'))->first();
+
+        DB::beginTransaction();
+        try {
+
+            $order = new Cart;
+
+            $order->order_by = $request->get('order_by');
+            $order->order = json_decode($request->get('order'));
+            // $order->total_amount = $request->get('total_amount');
+            $order->save();
+
+            DB::commit();
+
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "ADD_TO_CART_SUCCESS";
+            $this->response['msg'] = "Success.";
+            $this->response['data'] = $order;
+            $this->response_code = 200;
+        } catch (\Exception $e) {
+            DB::rollback();
+
+
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "SERVER_ERROR";
+            $this->response['msg'] = "Server Error: Code #{$e->getMessage()}";
+            $this->response_code = 500;
+        }
+
+        callback:
+        switch (Str::lower($format)) {
+            case 'json':
+                return response()->json($this->response, $this->response_code);
+                break;
+            case 'xml':
+                return response()->xml($this->response, $this->response_code);
+                break;
+        }
+    }
+
+    public function deductQuantity(Request $request, $format = NULL)
+    {
+
+        DB::beginTransaction();
+        try {
+
+            $order = Cart::find($request->get('cart_id'));
+            $new_cart = [];
+
+            foreach ($order->order as $value) {
+                if ($value['product_id'] === $request->get('product_id')) {
+                    $value['quantity'] = (int)$value['quantity'] - 1;
+                }
+                array_push($new_cart, $value);
+            }
+
+            $order->order = $new_cart;
+            $order->save();
+
+            DB::commit();
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "DEDUCT_QTY_SUCCESS";
+            $this->response['msg'] = "Success.";
+            $this->response['data'] = $order;
+            $this->response_code = 200;
+        } catch (\Exception $e) {
+            DB::rollback();
+
+
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "SERVER_ERROR";
+            $this->response['msg'] = "Server Error: Code #{$e->getMessage()}";
+            $this->response_code = 500;
+        }
+
+        callback:
+        switch (Str::lower($format)) {
+            case 'json':
+                return response()->json($this->response, $this->response_code);
+                break;
+            case 'xml':
+                return response()->xml($this->response, $this->response_code);
+                break;
+        }
+    }
+
+    public function addQuantity(Request $request, $format = NULL)
+    {
+
+        DB::beginTransaction();
+        try {
+
+            $order = Cart::find($request->get('cart_id'));
+            $new_cart = [];
+
+            foreach ($order->order as $value) {
+                if ($value['product_id'] === $request->get('product_id')) {
+                    $value['quantity'] = (int)$value['quantity'] + 1;
+                }
+                array_push($new_cart, $value);
+            }
+
+            $order->order = $new_cart;
+            $order->save();
+
+            DB::commit();
+            $this->response['status'] = TRUE;
+            $this->response['status_code'] = "DEDUCT_QTY_SUCCESS";
+            $this->response['msg'] = "Success.";
+            $this->response['data'] = $order;
+            $this->response_code = 200;
+        } catch (\Exception $e) {
+            DB::rollback();
+
+
+            $this->response['status'] = FALSE;
+            $this->response['status_code'] = "SERVER_ERROR";
+            $this->response['msg'] = "Server Error: Code #{$e->getMessage()}";
+            $this->response_code = 500;
+        }
+
+        callback:
+        switch (Str::lower($format)) {
+            case 'json':
+                return response()->json($this->response, $this->response_code);
+                break;
+            case 'xml':
+                return response()->xml($this->response, $this->response_code);
+                break;
+        }
+    }
+
+    public function get_cart_items(Request $request, $format = NULL)
+    {
+
+        $cart = Cart::where('order_by', $request->get('user_id'))->get();
+        $new_cart = [];
+        $total_amount = 0;
+
+        foreach ($cart as $value) {
+            foreach ($value->order as  $prod) {
+                $product_details = Product::where('id', $prod['product_id'])
+                    ->first();
+
+                array_push($new_cart, $product_details);
+                $total_amount += $product_details->price * $prod['quantity'];
+            };
+            $col = collect([
+                'total_amount' => $total_amount,
+                'order' => $new_cart,
+                'order_by' => $request->get('user_id')
+            ]);
+        }
+
+        $this->response['status'] = TRUE;
+        $this->response['status_code'] = "CART_LIST";
+        $this->response['msg'] = "Cart informations.";
+        $this->response['data'] = $col;
+        $this->response_code = 200;
+
+
+
+
+        callback:
+        return response()->json($this->response, $this->response_code);
     }
 }

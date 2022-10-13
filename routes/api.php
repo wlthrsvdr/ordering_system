@@ -41,5 +41,10 @@ Route::group([
         Route::post('create.{format}', ['as' => "create", 'uses' => "OrderController@store"]);
         Route::post('show.{format}', ['as' => "show", 'uses' => "OrderController@show"]);
         Route::post('check-unpaid.{format}', ['as' => "check-unpaid", 'uses' => "OrderController@check_unpaid_order"]);
+
+        Route::post('add-to-cart.{format}', ['as' => "add-to-cart", 'uses' => "OrderController@addToCart"]);
+        Route::post('deduct-qty.{format}', ['as' => "deduct-qty", 'uses' => "OrderController@deductQuantity"]);
+        Route::post('add-qty.{format}', ['as' => "add-qty", 'uses' => "OrderController@addQuantity"]);
+        Route::post('get-user-cart.{format}', ['as' => "get-user-cart", 'uses' => "OrderController@get_cart_items"]);
     });
 });
