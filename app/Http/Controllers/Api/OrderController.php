@@ -71,11 +71,6 @@ class OrderController extends Controller
             }
         })
             ->where(function ($query) {
-                if ($this->data['id']) {
-                    return $query->where('id', $this->data['id']);
-                }
-            })
-            ->where(function ($query) {
                 if ($this->data['order_by']) {
                     return $query->where('order_by', $this->data['order_by']);
                 }
@@ -86,11 +81,10 @@ class OrderController extends Controller
                 }
             })
             ->where(function ($query) {
-                if (strlen($this->data['order_status']) > 0) {
-
-                    if ($this->data['order_status'] === 1) {
+                if ($this->data['order_status']) {
+                    if ($this->data['order_status'] == 1) {
                         return $query->where('order_status', '!=', 'completed');
-                    } else if ($this->data['order_status'] === 2) {
+                    } else if ($this->data['order_status'] == 2) {
                         return $query->where('order_status', 'completed');
                     }
                 }
