@@ -40,7 +40,10 @@ function showModal(id) {
                                 $('#rfid_text').val('');
                                 setTimeout(function () {
                                     $(AlertMsg).hide();
-                                    location.reload();
+                                    console.log(res.data);
+                                    $('#confirm-reg-card').modal('hide');
+                                    $('#confirm_reg_id').modal('show');
+                                    // location.reload();
                                 }, 2000);
                             }
                         }
@@ -58,6 +61,13 @@ function showModal(id) {
         }, 500))
     })();
 }
+
+$('#add_balance_button').on('click', function () {
+    var url = "admin/wallet/topup";
+    var host = window.location.origin;
+    var full_url = host + '/' + url;
+    window.location.href = full_url;
+});
 
 $('#pay-card-button').on('click', function () {
     console.log("Asdasd");

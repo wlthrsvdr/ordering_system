@@ -216,6 +216,24 @@
         </div>
     </div>
 
+    <div id="confirm_reg_id" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <h4 class="modal-title w-100">Add Balance</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to add balance to your card?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="add_balance_button">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -231,11 +249,10 @@
                     </div>
                     <div id="tap_container" class="tap-container">
                         <h3 class="text-semibold">Please tap your rfid card</h3>
-                        <input type="text" id="rfid_text" style="z-index: -1 !important;position: absolute;" autocomplete="off">
+                        <input type="text" id="rfid_text" style="z-index: -1 !important;position: absolute;"
+                            autocomplete="off">
                         <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="100%">
                     </div>
-
-
                 </div>
 
                 <div class="modal-footer">
