@@ -34,7 +34,7 @@ class ApplicationController extends Controller
         // $dirs = File::allFiles(public_path() . '/assets/downloads');
         // $dirs = File::allFiles(public_path('uploads/downloads'));
         $apks = storage_path('app/public/apk/');
-        dd($apks);
+        dd(storage_path());
         $dirs = File::files($apks);
 
         $arr = [];
