@@ -216,7 +216,7 @@
         </div>
     </div>
 
-    <div id="confirm_reg_id" class="modal fade">
+    <div id="confirm_reg_id" class="modal fade" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header flex-column">
@@ -235,7 +235,7 @@
     </div>
 
 
-    <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog">
+    <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

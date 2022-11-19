@@ -183,21 +183,21 @@
                                                 <button type="button"
                                                     class="btn btn-sm btn-primary btn-raised dropdown-toggle"
                                                     data-toggle="dropdown">Actions <span class="caret"></span></button>
-                                                {{-- @if ($value->payment_status != 'paid') --}}
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
-                                                    <button class="dropdown-item" order-id="{{ $value->id }}"
-                                                        id="pay-card-button">Pay via
-                                                        card</button>
-                                                    <a href="{{ route('admin.order.update-status', [$value->id]) }}"
-                                                        class="dropdown-item" style="cursor: pointer">
-                                                        @if ($value->order_status === 'pending')
-                                                            update to preparing
-                                                        @elseif($value->order_status === 'preparing')
-                                                            update to prepared
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                                {{-- @endif --}}
+                                                @if ($value->payment_status != 'paid')
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton2">
+                                                        <button class="dropdown-item" order-id="{{ $value->id }}"
+                                                            id="pay-card-button">Pay via
+                                                            card</button>
+                                                        <a href="{{ route('admin.order.update-status', [$value->id]) }}"
+                                                            class="dropdown-item" style="cursor: pointer">
+                                                            @if ($value->order_status === 'pending')
+                                                                update to preparing
+                                                            @elseif($value->order_status === 'preparing')
+                                                                update to prepared
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -229,7 +229,7 @@
         </div>
 
 
-        <div id="confirm-pay-via-card" class="modal fade">
+        <div id="confirm-pay-via-card" class="modal fade" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -244,7 +244,7 @@
                         <div id="tap_container" class="tap-container">
                             <h3 class="text-semibold">Please tap your rfid card</h3>
                             <input type="text" id="order_rfid_text" name="rfid_text"
-                                style="z-index: -1 !important;position: absolute;">
+                                style="z-index: -1 !important;position: absolute;" autocomplete="off">
                             <img src={{ asset('assets/imgs/tap.png') }} class="tap_img" alt="Tap Image" width="100%">
                         </div>
 

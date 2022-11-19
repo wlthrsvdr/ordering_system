@@ -247,11 +247,11 @@ class UserManagementController extends Controller
 
         $if_exists_card = User::where('rfid_number', $request->get('rfidText'))->first();
 
-        // if ($if_exists_card) {
-        //     $this->data['msg'] = "RFID Number already register.";
-        //     $this->data['status_code'] = 401;
-        //     goto callback;
-        // }
+        if ($if_exists_card) {
+            $this->data['msg'] = "RFID Number already register.";
+            $this->data['status_code'] = 401;
+            goto callback;
+        }
 
         $student = User::find($request->get('userId'));
 
