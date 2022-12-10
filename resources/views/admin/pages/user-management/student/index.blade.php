@@ -168,12 +168,14 @@
                                                     </a>
                                                     {{-- id="pay-card-button" --}}
                                                     {{-- user-id="{{ $value->id }}" --}}
-                                                    @if ($value->rfid_number == '')
-                                                        <a onclick="showModal({{ $value->id }})" class="dropdown-item"
-                                                            style="cursor: pointer">
+                                                    <a onclick="showModal({{ $value->id }})" class="dropdown-item"
+                                                        style="cursor: pointer">
+                                                        @if ($value->rfid_number != '')
+                                                            Update Card
+                                                        @else
                                                             Register Card
-                                                        </a>
-                                                    @endif
+                                                        @endif
+                                                    </a>
                                                     @if ($value->rfid_number != '')
                                                         <a href="{{ route('admin.users.customer.update-card-status', [$value->id]) }}"
                                                             class="dropdown-item" style="cursor: pointer">
@@ -235,7 +237,8 @@
     </div>
 
 
-    <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div id="confirm-reg-card" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static"
+        data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -31,13 +31,12 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
 
-        // $dirs = File::allFiles(public_path() . '/assets/downloads');
+        $dirs = File::allFiles(public_path() . '/assets/downloads');
         // $dirs = File::allFiles(public_path('uploads/downloads'));
-        $apks = storage_path('app/public/apk/');
-        dd(public_path('app/public/apk/'));
+        // $apks = storage_path('app/public/apk/');
         // dd(public_path('public/apk/'));
         // dd(public_path());
-        $dirs = File::files($apks);
+        // $dirs = File::files($apks);
 
         $arr = [];
         foreach ($dirs as  $file) {
@@ -65,8 +64,8 @@ class ApplicationController extends Controller
 
     public function store(Request $request)
     {
-        $dirs = Storage::allFiles('storage/app/public/apk');
-        // $dirs = File::allFiles('public/assets/downloads');
+        // $dirs = Storage::allFiles('storage/app/public/apk');
+        $dirs = File::allFiles(public_path('assets/downloads/'));
 
         if (count($dirs) > 0) {
             session()->flash('notification-status', "error");
@@ -83,14 +82,14 @@ class ApplicationController extends Controller
                 //     'Installer'
                 // );
 
-                $path = $request->file('apk')->storeAs(
-                    'apk',
-                    'Installer.apk',
-                    'public'
-                );
+                // $path = $request->file('apk')->storeAs(
+                //     'apk',
+                //     'Installer.apk',
+                //     'public'
+                // );
 
-                // $destinationPath = public_path('assets/downloads');
-                // $file = $apk->move($destinationPath, $fileName);
+                $destinationPath = public_path('assets/downloads');
+                $file = $apk->move($destinationPath, $fileName);
             }
 
             session()->flash('notification-status', "success");
@@ -125,9 +124,9 @@ class ApplicationController extends Controller
 
     public function download_apk(Request $request)
     {
-        // $dirs = File::allFiles(public_path() . '/assets/downloads');
-        $apks = storage_path('app/public/apk/');
-        $dirs = File::files($apks);
+        $dirs = File::allFiles(public_path() . '/assets/downloads');
+        // $apks = storage_path('app/public/apk/');
+        // $dirs = File::files($apks);
         // $dirs = File::allFiles('public/assets/downloads');
 
         if (count($dirs) == 0) {
