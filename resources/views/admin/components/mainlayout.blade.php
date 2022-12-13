@@ -193,17 +193,17 @@
                             </a>
                         </li> --}}
 
-                        {{-- @if (Auth::guard('admin')->user()->user_role === 'admin') --}}
-                        {{-- <li class="nav-item has-treeview">
-                            <a href="{{ route('admin.report.index') }}"
-                                class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
-                                <i class="nav-icon fa fa-file-excel-o"></i>
-                                <p>
-                                    Report
-                                </p>
-                            </a>
-                        </li> --}}
-                        {{-- @endif --}}
+                        @if (Auth::guard('admin')->user()->user_role === 'admin')
+                            <li class="nav-item has-treeview">
+                                <a href="{{ route('admin.report.index') }}"
+                                    class="{{ request()->is('admin/report') ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fa fa-file-excel-o"></i>
+                                    <p>
+                                        Report
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
